@@ -104,8 +104,8 @@ export default {
         ciclo: 2018
       },
 
-      apiUrl: 'http://172.17.0.1:3000/api',
-      apiForms: 'http://172.17.0.1:3000/api/forms',
+      apiUrl: 'http://localhost:7777/api',
+      apiForms: 'http://localhost:7777/api/forms',
 
       loading: true,
       error: ''
