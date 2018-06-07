@@ -1,0 +1,18 @@
+version: "3"
+services:
+    siep-admin:
+      restart: always
+      image: nginx:alpine
+      container_name: siep-admin
+      working_dir: /application
+      volumes:
+          - ..:/application
+          - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "81:80"
+      environment:
+        - DB_HOST=siep-mysql
+        - DB_DATABASE=siep
+        - DB_USERNAME=siep
+        - DB_PASSWORD=siep
+        - API_GATEWAY_HOST=http://siep-api-gw
