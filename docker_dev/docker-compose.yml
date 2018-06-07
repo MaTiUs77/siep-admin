@@ -16,3 +16,9 @@ services:
         - DB_USERNAME=siep
         - DB_PASSWORD=siep
         - API_GATEWAY_HOST=http://siep-api-gw
+      networks:
+        - siep-lan
+
+networks:
+  siep-lan:
+    driver: bridge
