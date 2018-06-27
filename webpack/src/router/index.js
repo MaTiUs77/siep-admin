@@ -5,9 +5,6 @@ import Router from 'vue-router'
 
 import Home from '@/sections/Home'
 import rrhh_AlumnosNominal from '@/sections/rrhh/AlumnosNominal'
-import Selectbox from '@/components/Selectbox'
-
-Vue.component('siep-selectbox', Selectbox);
 
 Vue.use(Router);
 

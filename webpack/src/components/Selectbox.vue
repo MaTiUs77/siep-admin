@@ -1,14 +1,10 @@
 <template>
 <div>
-  <div class="form-group" :class="{ 'has-success' : selectedValue, 'has-error' : computedError }" style="margin:0">
-    <select class="form-control" v-model="selectedValue">
-      <option :value="null">- Seleccionar {{ name }} -</option>
-      <option v-for="item in lista" :value="prepareOptionValue(item)" v-text="prepareOptionText(item)"></option>
-    </select>
+    <select2 :options="options" v-model="selectedValue" style="width:100%;padding: 10px"/>
     <span class="help-block" v-if="error">{{ error }}</span>
-  </div>
-  <a href="javascript:;" class="pull-right" v-if="selectedValue" @click="resetFilter">remover</a>
-  <br>
+    <a-button type="primary" icon="delete" @click="resetFilter" v-if="selectedValue" shape="circle" size="small"/>
+<br>
+<br>
 </div>
 </template>
 
@@ -19,7 +15,8 @@ export default {
   name: 'siep-selectbox',
   data () {
     return {
-    	lista:[],
+      selected: 0,
+      options: [],
       error: null,
       selectedValue: null
     }
@@ -32,15 +29,23 @@ export default {
     'optionValue'
   ],
   created: function () {
-    this.makeFilter();
     this.formOption();
   },
   methods: {
     formOption: function () {
       var vm = this;
+
       axios.get(this.$parent.apiForms +'/'+ vm.apiForm)
         .then(function (response) {
-          vm.lista = response.data;
+	let s2options = response.data.map(function(x) {
+	   let obj = {
+	    id: vm.prepareOptionValue(x),
+	    text: vm.prepareOptionText(x)
+	   }
+	   return obj;
+	});
+
+	vm.options = s2options;
         })
         .catch(function (error) {
           vm.error = error.message;
@@ -48,14 +53,6 @@ export default {
     },
     resetFilter() {
       this.selectedValue = null;
-    },
-    makeFilter() {
-      /*// Si no existe el filtro, crea el objeto
-      if(!this.filter[this.name]) {
-        this.filter[this.name] = null;
-      }*/
-
-//      this.optionSelected = this.filter[this.name];
     },
     prepareOptionText(item) {
       return (this.optionText ? item[this.optionText] : item[this.name]);
@@ -72,7 +69,7 @@ export default {
   },
   watch: {
     filter: function(newVal, oldVal) {
-      this.selectedValue = null;
+      this.resetFilter();
     },
     selectedValue: function(newVal, oldVal) {
       this.filter[this.name] = newVal;
@@ -94,3 +91,16 @@ export default {
   }
 }
 </script>
+
+<style>
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+</style>
+

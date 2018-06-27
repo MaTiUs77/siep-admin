@@ -4,5 +4,5 @@ var app = express();
 app.use(express.static('dist'));
 
 app.listen(9001, function () {
-  console.log('Example app listening!');
+  console.log('Server listening!');
 });
