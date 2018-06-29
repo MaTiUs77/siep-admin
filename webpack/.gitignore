@@ -1,9 +1,11 @@
 .DS_Store
 node_modules/
-/dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+dist/static/adminlte
+static/adminlte
 
 # Editor directories and files
 .idea
@@ -12,3 +14,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+*.swp

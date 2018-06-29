@@ -1,6 +1,5 @@
 <template>
 <div>
-
   <div class="row">
 
     <div class="col-md-9">
@@ -43,11 +42,9 @@
         </div>
 
         <div class="box-footer clearfix">
-          <ul class="pagination pagination-sm">
-            <li v-for="num in pagination.render" :class="{active : pagination.current_page == num}">
-              <a href="javascript:;" v-on:click="aplicarFiltro(num)">{{ num }}</a>
-            </li>
-          </ul>
+	
+	<a-pagination v-model="pagination.current_page" :total="pagination.total" @change="aplicarFiltro(pagination.current_page)" />
+
         </div>
 
         <div class="overlay" v-if="loading">
@@ -63,6 +60,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
+
 
           <h5>Filtrar Ciclo</h5>
           <siep-selectbox :filter="filtro" name="ciclo" api-form="ciclos" option-text="nombre"></siep-selectbox>
@@ -104,8 +102,8 @@ export default {
         ciclo: 2018
       },
 
-      apiUrl: 'http://localhost:7777/api',
-      apiForms: 'http://localhost:7777/api/forms',
+      apiUrl: proccess.env.SIEP_API_GW_INGRESS+'/api',
+      apiForms: proccess.env.SIEP_API_GW_INGRESS+'/api/forms',
 
       loading: true,
       error: ''

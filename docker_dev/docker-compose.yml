@@ -16,8 +16,20 @@ services:
         - DB_USERNAME=siep
         - DB_PASSWORD=siep
         - API_GATEWAY_HOST=http://siep-api-gw
+      depends_on:
+        - siep-admin-node
       networks:
         - siep-lan
+
+    siep-admin-node:
+      image: node:alpine
+      container_name: siep-admin-node
+      volumes:
+         - "..:/application"
+      working_dir: "/application/webpack"
+      command: sh -c "npm install && npm run build"         
+      networks:
+         - siep-lan
 
 networks:
   siep-lan:

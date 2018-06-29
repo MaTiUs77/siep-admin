@@ -7,12 +7,15 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "server": "node server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "express": "^4.16.3",
     "lodash": "^4.17.10",
     "vue": "^2.5.2",
+    "vue-antd-ui": "^0.6.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
