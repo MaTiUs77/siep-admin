@@ -1,12 +1,10 @@
-var _ = require('lodash');
-
 import Vue from 'vue'
 import Router from 'vue-router'
+import Home from '@/pages/Home'
 
-import Home from '@/sections/Home'
-import rrhh_AlumnosNominal from '@/sections/rrhh/AlumnosNominal'
+import RRHH_AlumnosNominal from '@/pages/rrhh/alumnos_nominal'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   routes: [
@@ -17,8 +15,8 @@ export default new Router({
     },
     {
       path: '/rrhh/alumnos_nominal',
-      name: 'rrhh_AlumnosNominal',
-      component: rrhh_AlumnosNominal
+      name: 'RRHH_AlumnosNominal',
+      component: RRHH_AlumnosNominal
     }
   ]
 })

@@ -1,43 +1,33 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import Vuex from 'vuex'
+import App from './App'
 import router from './router'
 
-import Antd from 'vue-antd-ui'
-import 'vue-antd-ui/dist/antd.css'
-Vue.use(Antd)
-
-import Selectbox from '@/components/Selectbox'
-import LoginHeader from '@/components/LoginHeader'
-import Select2 from '@/components/Select2'
-
-Vue.component(Selectbox.name, Selectbox);
-Vue.component(LoginHeader.name, LoginHeader);
-Vue.component(Select2.name, Select2);
+// Vuetify
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
 
-//import Antd from 'vue-antd-ui'
-//import 'vue-antd-ui/dist/antd.css';  // or 'vue-antd-ui/dist/antd.less'
-//import { Pagination, AutoComplete, Select, SelectOption } from 'vue-antd-ui';
-//Vue.component(Pagination.name, Pagination)
-//Vue.component(AutoComplete.name, AutoComplete)
+Vue.use(Vuetify)
 
-/*Vue.use(Vuex);
-const store = new Vuex.Store({
-  strict: true,
-  state: {
-    user: {
-      username: 'Matias Flores'
-    }
+/* Customizar theme 
+import colors from 'vuetify/es5/util/colors'
+Vue.use(Vuetify, {
+  theme: {
+    primary: colors.orange.darken1, // #E53935
+    secondary: colors.orange.lighten4, // #FFCDD2
+    accent: colors.indigo.base // #3F51B5
   }
-});
+})
 */
-Vue.config.productionTip = false;
+
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-//  store: store,
-  router
+  router,
+  components: { App },
+  template: '<App/>'
 })
