@@ -3,7 +3,7 @@
 
     <!-- MENU DE NAVEGACION !-->
     <v-navigation-drawer
-      persistent
+      temporary
       v-model="drawer"
       enable-resize-watcher
       fixed

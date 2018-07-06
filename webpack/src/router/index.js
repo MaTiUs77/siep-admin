@@ -18,5 +18,8 @@ export default new Router({
       name: 'RRHH_AlumnosNominal',
       component: RRHH_AlumnosNominal
     }
-  ]
+  ]/*,
+  scrollBehavior: function(to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }*/
 })
