@@ -28,8 +28,13 @@
           },
           {
             icon: 'account_circle',
-            title: 'Alumnos Nominal',
+            title: 'Inscripciones Nominales',
             path: '/rrhh/alumnos_nominal'
+          },
+          {
+            icon: 'account_circle',
+            title: 'Secciones',
+            path: '/matriculas/cuantitativa/por_seccion'
           }
         ]
       }

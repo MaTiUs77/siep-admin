@@ -42,7 +42,7 @@
     components :{ MenuSidebar, UserSidebar },
     data () {
       return {
-        title: 'Siep Admin',
+        title: 'SIEP | Admin',
         drawer: true,
         headerColor: 'primary'
       }
