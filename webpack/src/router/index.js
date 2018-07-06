@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import home from '@/pages/home'
 import rrhh_alumnos_nominal from '@/pages/rrhh/alumnos_nominal'
+import matriculas_cuantitativa_por_seccion from '@/pages/matriculas/cuantitativa_por_seccion'
 
 Vue.use(Router);
 
@@ -17,6 +18,11 @@ export default new Router({
       path: '/rrhh/alumnos_nominal',
       name: 'rrhh_alumnos_nominal',
       component: rrhh_alumnos_nominal
+    },
+    {
+      path: '/matriculas/cuantitativa/por_seccion',
+      name: 'matriculas_cuantitativa_por_seccion',
+      component: matriculas_cuantitativa_por_seccion
     }
   ]/*,
   scrollBehavior: function(to, from, savedPosition) {

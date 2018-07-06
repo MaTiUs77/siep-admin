@@ -49,16 +49,17 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.centro }}</td>
+        <td>{{ props.item.ciudad }}</td>
+        <td class="text-xs-right">{{ props.item.cue }}</td>
+        <td class="text-xs-right">{{ props.item.nombre }}</td>
         <td class="text-xs-right">{{ props.item.nivel_servicio }}</td>
-        <td class="text-xs-right">{{ props.item.nombre_completo }}</td>
-        <td class="text-xs-right">{{ props.item.dni }}</td>
-        <td class="text-xs-right">{{ props.item.año }}</td>
+        <td class="text-xs-right">{{ props.item.sector }}</td>
+        <td class="text-xs-right">{{ props.item.anio }}</td>
         <td class="text-xs-right">{{ props.item.division }}</td>
         <td class="text-xs-right">{{ props.item.turno }}</td>
-        <td class="text-xs-right">{{ props.item.fecha_alta }}</td>
-        <td class="text-xs-right">{{ props.item.fecha_baja }}</td>
-        <td class="text-xs-right">{{ props.item.fecha_egreso }}</td>
+        <td class="text-xs-right">{{ props.item.tipo }}</td>
+        <td class="text-xs-right">{{ props.item.matriculas }}</td>
+        <td class="text-xs-right">{{ props.item.varones }}</td>
       </template>
     </v-data-table>
     <!-- ./Datatable -->
@@ -85,16 +86,17 @@
     data () {
       return {
         headers: [
-          { text: 'Centro', value: 'centro', sortable: false  },
+          { text: 'Ciudad', value: 'ciudad', sortable: false  },
+          { text: 'Cue', value: 'cue', sortable: false  },
+          { text: 'Centro', value: 'nombre', sortable: false  },
           { text: 'Nivel de servicio', value: 'nivel_servicio' , sortable: false },
-          { text: 'Nombre', value: 'nombre_completo' , sortable: false },
-          { text: 'DNI', value: 'dni' , sortable: false },
-          { text: 'Año', value: 'año' , sortable: false },
-          { text: 'Division', value: 'division' , sortable: false },
-          { text: 'Turno', value: 'turno' , sortable: false },
-          { text: 'Fecha Alta', value: 'fecha_alta' , sortable: false },
-          { text: 'Fecha Baja', value: 'fecha_baja' , sortable: false },
-          { text: 'Fecha Egreso', value: 'fecha_egreso' , sortable: false },
+          { text: 'Sector', value: 'sector', sortable: false  },
+          { text: 'Año', value: 'anio', sortable: false  },
+          { text: 'Division', value: 'division', sortable: false  },
+          { text: 'Turno', value: 'turno', sortable: false  },
+          { text: 'Tipo', value: 'tipo', sortable: false  },
+          { text: 'Matriculas', value: 'matriculas', sortable: false  },
+          { text: 'Varones', value: 'varones', sortable: false  },
         ],
         response: [],
 
@@ -137,7 +139,7 @@
 
         vm.scrollToTop();
 
-        axios.get(vm.apigw+'/api/dependencia/rrhh/nominal_alumnos_inscriptos',{
+        axios.get(vm.apigw+'/api/matriculas/cuantitativa/por_seccion',{
           params: vm.query
         })
         .then(function (response) {
@@ -159,7 +161,7 @@
         download.export = 1;
         download.por_pagina = 'all';
 
-        axios.get(vm.apigw+'/api/dependencia/rrhh/nominal_alumnos_inscriptos',{
+        axios.get(vm.apigw+'/api/matriculas/cuantitativa/por_seccion',{
           params: download,
           responseType: 'blob'
         })
@@ -171,7 +173,7 @@
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement('a');
           link.href = url;
-          link.setAttribute('download', 'RRHH_AlumnosNominal.xlsx');
+          link.setAttribute('download', 'Matriculas_cuantitativa_por_seccion.xlsx');
           document.body.appendChild(link);
           link.click();
         })
