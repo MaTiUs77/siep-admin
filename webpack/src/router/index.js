@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/Home'
 
-import RRHH_AlumnosNominal from '@/pages/rrhh/alumnos_nominal'
+import home from '@/pages/home'
+import rrhh_alumnos_nominal from '@/pages/rrhh/alumnos_nominal'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'home',
+      component: home
     },
     {
       path: '/rrhh/alumnos_nominal',
-      name: 'RRHH_AlumnosNominal',
-      component: RRHH_AlumnosNominal
+      name: 'rrhh_alumnos_nominal',
+      component: rrhh_alumnos_nominal
     }
   ]/*,
   scrollBehavior: function(to, from, savedPosition) {

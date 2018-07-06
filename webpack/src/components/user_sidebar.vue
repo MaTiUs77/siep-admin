@@ -8,7 +8,7 @@
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title>RRHH</v-list-tile-title>
+            <v-list-tile-title>{{ user.name }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+  import { sync } from 'vuex-pathify';
+
   export default {
     data () {
       return {
@@ -26,6 +28,9 @@
     created: function () {
     },
     methods: {
+    },
+    computed: {
+      user: sync('user')
     }
   }
 </script>

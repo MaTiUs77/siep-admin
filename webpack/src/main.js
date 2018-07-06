@@ -2,30 +2,20 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
-
 // Vuetify
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import router from './router'
+import store from './store'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify);
 
-/* Customizar theme 
-import colors from 'vuetify/es5/util/colors'
-Vue.use(Vuetify, {
-  theme: {
-    primary: colors.orange.darken1, // #E53935
-    secondary: colors.orange.lighten4, // #FFCDD2
-    accent: colors.indigo.base // #3F51B5
-  }
-})
-*/
-
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
+  store,
   el: '#app',
   router,
   components: { App },

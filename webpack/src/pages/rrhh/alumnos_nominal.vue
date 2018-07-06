@@ -13,7 +13,6 @@
           <select-api-forms v-model="filtro.anio" form="años" label="Filtrar año" text="anio"/>
           <select-api-forms v-model="filtro.division" form="divisiones" label="Filtrar division" text="division"/>
           <select-api-forms v-model="filtro.turno" form="turnos" label="Filtrar turno" text="turno"/>
-          <select-api-forms v-model="filtro.tipo" form="tipos" label="Filtrar tipo" text="tipo"/>
       </v-flex>
     </v-layout>
   </v-container>

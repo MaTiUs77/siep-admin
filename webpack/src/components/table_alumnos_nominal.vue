@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <v-chip
       class="ml-0"
       label
@@ -8,6 +9,36 @@
       Inscripciones: {{ response.total || 'Sin resultados' }}
     </v-chip>
 
+    <!-- Descargar excel -->
+    <v-btn
+      small
+      :loading="excel.download"
+      :disabled="excel.download"
+      @click.native="startDownload"
+
+      color="green"
+      class="white--text"
+    >
+      <v-icon left dark>cloud_download</v-icon>
+      Descargar Excel
+    </v-btn>
+
+    <v-snackbar
+      v-model="excel.snackbar"
+      color="red darken-4"
+    >
+      Error: {{ excel.error_message }}
+      <v-btn
+        dark
+        flat
+        @click="excel.snackbar = false"
+      >
+        Cerrar
+      </v-btn>
+    </v-snackbar>
+    <!-- ./Descargar excel -->
+
+    <!-- Datatable -->
     <v-data-table
       :headers="headers"
       :items="response.data"
@@ -29,8 +60,10 @@
         <td class="text-xs-right">{{ props.item.fecha_egreso }}</td>
       </template>
     </v-data-table>
+    <!-- ./Datatable -->
     <br>
 
+    <!-- Pagination -->
     <p class="text-xs-center">
       <v-pagination
         v-model="page"
@@ -38,6 +71,7 @@
         :total-visible="7"
       />
     </p>
+    <!-- ./Pagination -->
 
   </div>
 </template>
@@ -62,6 +96,13 @@
           { text: 'Fecha Egreso', value: 'fecha_egreso' , sortable: false },
         ],
         response: [],
+
+        excel: {
+          download: false,
+          error: false,
+          error_message: false,
+          snackbar: false
+        },
 
         apigw: process.env.SIEP_API_GW_INGRESS,
         page: 1,
@@ -88,7 +129,7 @@
       }
     },
     methods: {
-      getData: function() {
+      getData() {
         let vm = this;
         vm.loading = true;
         vm.error = false;
@@ -108,7 +149,39 @@
           vm.loading = false;
         });
       },
-      scrollToTop: function() {
+      startDownload() {
+        let vm = this;
+        vm.excel.download = true;
+        vm.excel.error= false;
+
+        let download= JSON.parse(JSON.stringify(vm.query));
+        download.export = 1;
+        download.por_pagina = 'all';
+
+        axios.get(vm.apigw+'/api/dependencia/rrhh/nominal_alumnos_inscriptos',{
+          params: download,
+          responseType: 'blob'
+        })
+        .then(function (response) {
+          vm.excel.download= false;
+          vm.excel.error= false;
+
+          // Descarga EXCEL con AJAX (permite crear loading)
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'RRHH_AlumnosNominal.xlsx');
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch(function (error) {
+          vm.excel.download= false;
+          vm.excel.error= true;
+          vm.excel.error_message= error.message;
+          vm.excel.snackbar = true;
+        });
+      },
+      scrollToTop() {
         window.scrollTo(0,0);
       }
     }
