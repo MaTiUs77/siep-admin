@@ -3,7 +3,7 @@
 
     <!-- MENU DE NAVEGACION !-->
     <v-navigation-drawer
-      persistent
+      temporary
       v-model="drawer"
       enable-resize-watcher
       fixed
@@ -18,7 +18,7 @@
 
     <v-toolbar
       app
-      color="primary"
+      :color="headerColor"
       dark
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -43,8 +43,12 @@
     data () {
       return {
         title: 'Siep Admin',
-        drawer: true
+        drawer: true,
+        headerColor: 'primary'
       }
+    },
+    created () {
+      this.headerColor = navigator.onLine ? 'primary' : 'black'
     },
     methods: {
     },
