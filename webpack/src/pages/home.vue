@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <img src="@/assets/escudo.png" alt="SIEP" class="mb-5">
+        <img src="@/assets/membretes-sup-edu.jpg" alt="SIEP" class="mb-5">
         <blockquote>
           "Sistema de Información Educativa Provincial."
           <footer>
