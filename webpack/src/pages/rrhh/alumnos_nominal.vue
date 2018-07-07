@@ -5,7 +5,7 @@
           <table-alumnos-nominal :query="filtro"/>
       </v-flex>
       <v-flex xs3>
-          <select-api-forms v-model="filtro.ciclo" selected="2018" form="ciclos" label="Filtrar ciclo"/>
+          <select-api-forms v-model="filtro.ciclo" :selected="filtro.ciclo" form="ciclos" label="Filtrar ciclo"/>
           <select-api-forms v-model="filtro.ciudad" form="ciudades" label="Filtrar ciudad"/>
           <select-api-forms v-model="filtro.centro_id" form="centros" label="Filtrar centro" custom="id"/>
           <select-api-forms v-model="filtro.sector" form="sectores" label="Filtrar sector" text="sector"/>
@@ -13,6 +13,7 @@
           <select-api-forms v-model="filtro.anio" form="años" label="Filtrar año" text="anio"/>
           <select-api-forms v-model="filtro.division" form="divisiones" label="Filtrar division" text="division"/>
           <select-api-forms v-model="filtro.turno" form="turnos" label="Filtrar turno" text="turno"/>
+          <select-api-forms v-model="filtro.estado_inscripcion" :selected="filtro.estado_inscripcion" form="estado_inscripcion" label="Filtrar estado" text="estado_inscripcion"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -30,7 +31,8 @@
     data () {
       return {
         filtro: {
-          ciclo: 2018
+          ciclo: 2018,
+          estado_inscripcion: 'CONFIRMADA',
         },
       }
     },
