@@ -10,19 +10,29 @@
     </v-chip>
 
     <!-- Descargar excel -->
-    <v-btn
-      v-if="response.total"
-      small
-      :loading="excel.download"
-      :disabled="excel.download"
-      @click.native="startDownload"
-
-      color="green"
-      class="white--text"
-    >
-      <v-icon left dark>cloud_download</v-icon>
-      Descargar Excel
-    </v-btn>
+    <v-menu
+            :disabled="excel.download"
+        open-on-hover offset-y max-height="200">
+        <v-btn
+          slot="activator"
+          color="green"
+          small
+          dark
+          :loading="excel.download"
+        >
+        <v-icon left dark>cloud_download</v-icon>
+        Descargar excel
+      </v-btn>
+      <v-list>
+        <v-list-tile
+          v-for="parte in excel.partes"
+          :key="parte"
+          @click.native="startDownload(parte)"
+        >
+          <v-list-tile-title>Parte: {{ parte }}</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
 
     <v-snackbar
       v-model="excel.snackbar"
@@ -102,7 +112,9 @@
           download: false,
           error: false,
           error_message: false,
-          snackbar: false
+          snackbar: false,
+          limite: 3000,
+          partes: 0
         },
 
         apigw: process.env.SIEP_API_GW_INGRESS,
@@ -143,6 +155,8 @@
         .then(function (response) {
           vm.response = response.data;
           vm.loading = false;
+
+          vm.excel.partes = Math.ceil(vm.response.total / vm.excel.limite);
         })
         .catch(function (error) {
           vm.error = true;
@@ -150,14 +164,15 @@
           vm.loading = false;
         });
       },
-      startDownload() {
+      startDownload(parte) {
         let vm = this;
         vm.excel.download = true;
         vm.excel.error= false;
 
         let download= JSON.parse(JSON.stringify(vm.query));
         download.export = 1;
-        download.por_pagina = 'all';
+        download.page = parte;
+        download.por_pagina = vm.excel.limite;
 
         axios.get(vm.apigw+'/api/dependencia/rrhh/nominal_alumnos_inscriptos',{
           params: download,
@@ -171,7 +186,7 @@
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement('a');
           link.href = url;
-          link.setAttribute('download', 'RRHH_AlumnosNominal.xlsx');
+          link.setAttribute('download', 'RRHH_AlumnosNominal_'+download.page+'.xlsx');
           document.body.appendChild(link);
           link.click();
         })
