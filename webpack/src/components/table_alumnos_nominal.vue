@@ -156,7 +156,9 @@
           vm.response = response.data;
           vm.loading = false;
 
-          vm.excel.partes = Math.ceil(vm.response.total / vm.excel.limite);
+          if(vm.response.total) {
+            vm.excel.partes = Math.ceil(vm.response.total / vm.excel.limite);
+          }
         })
         .catch(function (error) {
           vm.error = true;
