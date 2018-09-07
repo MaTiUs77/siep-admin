@@ -5,6 +5,14 @@
           <table-alumnos-nominal :query="filtro"/>
       </v-flex>
       <v-flex xs3>
+          <v-text-field
+                  v-model="filtro.documento_nro"
+                  label="Documento del alumno"
+                  dense
+                  box
+                  clearable
+          ></v-text-field>
+
           <select-api-forms v-model="filtro.ciclo" :selected="filtro.ciclo" form="ciclos" label="Filtrar ciclo"/>
           <select-api-forms v-model="filtro.ciudad" form="ciudades" label="Filtrar ciudad"/>
           <select-api-forms v-model="filtro.centro_id" form="centros" label="Filtrar centro" custom="id"/>
