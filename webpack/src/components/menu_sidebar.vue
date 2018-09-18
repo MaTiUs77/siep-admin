@@ -32,6 +32,12 @@
             path: '/rrhh/alumnos_nominal'
           },
           {
+            icon:'school',
+            title:'Instituciones',
+            path:'/instituciones'
+          },
+
+          {
             icon: 'account_circle',
             title: 'Secciones',
             path: '/matriculas/cuantitativa/por_seccion'
