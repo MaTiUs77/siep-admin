@@ -31,17 +31,18 @@
   import SelectApiForms from '../../components/apiforms/selectbox'
   import TableAlumnosNominal from '../../components/table_alumnos_nominal'
 
+
   export default {
     components :{
       SelectApiForms,
-      TableAlumnosNominal,
+      TableAlumnosNominal
     },
     data () {
       return {
         filtro: {
           ciclo: 2018,
           estado_inscripcion: 'CONFIRMADA',
-        },
+        }
       }
     },
     methods: {
