@@ -69,10 +69,66 @@
         <td class="text-xs-right">{{ props.item.fecha_alta }}</td>
         <td class="text-xs-right">{{ props.item.fecha_baja }}</td>
         <td class="text-xs-right">{{ props.item.fecha_egreso }}</td>
+        <td class="text-xs-center">
+          <v-btn
+                    color="primary"
+                    dark
+                    @click="showPersonInfo(props.item)"
+                    fab
+                    small
+            >
+                <v-icon>visibility</v-icon>
+            </v-btn>
+        </td>
+        <!--<td class="text-xs-center"><v-btn-->
+                <!--small-->
+                <!--@click.native="showPersonInfo()"-->
+                <!--color="primary"-->
+                <!--fab-->
+        <!--&gt;<v-icon>visibility</v-icon></v-btn></td>-->
+
       </template>
     </v-data-table>
     <!-- ./Datatable -->
     <br>
+
+    <v-dialog
+            v-model="dialog_ops.dialog"
+            max-width="490"
+    >
+      <v-card>
+        <v-card-title class="headline">{{dialog_ops.dialogTitle}}</v-card-title>
+        <v-card-text>
+          <div>
+            <strong>Nombre Completo:</strong> {{dialog_ops.dialogContent.nombres}} {{dialog_ops.dialogContent.apellidos}}
+          </div>
+          <div>
+            <strong>Documento Tipo:</strong> {{dialog_ops.dialogContent.documento_tipo}}
+          </div>
+          <div>
+            <strong>DNI:</strong> {{dialog_ops.dialogContent.dni}}
+          </div>
+          <div>
+            <strong>Edad:</strong> {{dialog_ops.dialogContent.edad}}
+          </div>
+          <div>
+            <strong>Sexo:</strong> {{dialog_ops.dialogContent.sexo}}
+          </div>
+          <div>
+            <strong>Año | División:</strong> {{dialog_ops.dialogContent.año}} {{dialog_ops.dialogContent.division}}
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+                  color="green darken-1"
+                  flat="flat"
+                  @click="dialog_ops.dialog = false"
+          >Aceptar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
 
     <!-- Pagination -->
     <p class="text-xs-center">
@@ -85,12 +141,17 @@
     <!-- ./Pagination -->
 
   </div>
+
 </template>
 
 <script>
   import axios from 'axios'
+  import dialogCustom from './dialog_custom'
 
   export default {
+    components:{
+      'dialog-custom':dialogCustom
+    },
     props: ['query'],
     data () {
       return {
@@ -105,6 +166,7 @@
           { text: 'Fecha Alta', value: 'fecha_alta' , sortable: false },
           { text: 'Fecha Baja', value: 'fecha_baja' , sortable: false },
           { text: 'Fecha Egreso', value: 'fecha_egreso' , sortable: false },
+          { text: 'Más Detalles', value: 'detalles' , sortable: false },
         ],
         response: [],
 
@@ -117,11 +179,20 @@
           partes: 0
         },
 
+        dialog_ops:{
+          dialog: false,
+          buttonName:"",
+          dialogTitle:"Información de Alumno",
+          dialogContent:[],
+          icon:"visibility"
+        },
+
         apigw: process.env.SIEP_API_GW_INGRESS,
         page: 1,
         loading: true,
         error: false,
-        error_message: ''
+        error_message: '',
+        details_loading: false
       }
     },
     created: function () {
@@ -198,6 +269,12 @@
           vm.excel.error_message= error.message;
           vm.excel.snackbar = true;
         });
+      },
+      showPersonInfo(alumno){
+        let vm = this;
+        vm.dialog_ops.dialogContent = alumno;
+        vm.dialog_ops.dialog = true;
+        console.log(alumno);
       },
       scrollToTop() {
         window.scrollTo(0,0);
