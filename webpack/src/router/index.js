@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// Paginas
+import login from '@/pages/login'
 import home from '@/pages/home'
 import rrhh_alumnos_nominal from '@/pages/rrhh/alumnos_nominal'
 import matriculas_cuantitativa_por_seccion from '@/pages/matriculas/cuantitativa_por_seccion'
@@ -10,6 +12,11 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'login',
+      component: login
+    },
     {
       path: '/',
       name: 'home',

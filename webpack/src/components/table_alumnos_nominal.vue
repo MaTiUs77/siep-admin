@@ -146,11 +146,9 @@
 
 <script>
   import axios from 'axios'
-  import dialogCustom from './dialog_custom'
 
   export default {
     components:{
-      'dialog-custom':dialogCustom
     },
     props: ['query'],
     data () {
