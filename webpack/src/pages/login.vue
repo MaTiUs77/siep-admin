@@ -44,7 +44,7 @@
     },
     methods:{
       goTo : function(social){
-        window.location = this.apigw+'/auth/social/'+social;
+        window.location = this.apigw+'/auth/social/'+social+'?app=siep-admin';
       },
       logout : function(){
         if(this.user.loggedIn){
