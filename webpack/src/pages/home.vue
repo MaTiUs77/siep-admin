@@ -15,3 +15,22 @@
     </v-slide-y-transition>
   </v-container>
 </template>
+
+<script>
+  import router from '../router'
+
+  export default{
+    created: function(){
+      console.log('page/home');
+      store.commit('updateTitle',"SIEP | Admin");
+    },
+    computed:{
+      user(){
+        return store.state.user
+      },
+      persona(){
+        return store.getters.persona;
+      }
+    }
+  }
+</script>

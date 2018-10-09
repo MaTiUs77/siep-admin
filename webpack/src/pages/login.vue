@@ -18,25 +18,19 @@
     </v-container>
 </template>
 <script>
-
-  import FacebookIcon from "vue-material-design-icons/facebook.vue"
-  import GoogleIcon from "vue-material-design-icons/google.vue"
-
   import router from '../router'
 
   export default {
-    created: function(){
-      store.commit('updateTitle',"SIEP | Iniciar sesión");
-      this.logout();
-    },
+    name: "login",
     data(){
       return{
-        color: '#5C6BC0',
-        apigw: process.env.SIEP_API_GW_INGRESS,
+        apigw: process.env.SIEP_API_GW_INGRESS
       }
     },
-    components :{ FacebookIcon,GoogleIcon  },
-    name: "login",
+    created: function(){
+      console.log('page/login');
+      store.commit('updateTitle',"SIEP | Iniciar sesión");
+    },
     computed:{
       user(){
         return store.state.user
@@ -45,11 +39,6 @@
     methods:{
       goTo : function(social){
         window.location = this.apigw+'/auth/social/'+social+'?app=siep-admin';
-      },
-      logout : function(){
-        if(this.user.loggedIn){
-          store.dispatch('logout');
-        }
       }
     }
   }

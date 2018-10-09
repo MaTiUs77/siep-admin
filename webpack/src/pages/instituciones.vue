@@ -1,6 +1,6 @@
 <template>
     <v-container fluid text-xs-center id="top">
-      <v-flex xs12 sm6 md4 lg4>
+      <v-flex xs12>
 
                 <v-combobox
                         v-model="filtro.ciudad"
@@ -33,8 +33,6 @@
                 </v-container>
 
 
-          <v-divider class="my-2"></v-divider>
-          <v-btn color="primary" @click="goBack"><v-icon>navigate_before</v-icon> Volver</v-btn>
 
             <!-- Resultados de busqueda -->
             <div v-for="item in resultado">
