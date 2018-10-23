@@ -59,6 +59,17 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
+        <td class="text-xs-center">
+          <v-btn
+            color="primary"
+            dark
+            @click="showPersonInfo(props.item)"
+            fab
+            small
+          >
+            <v-icon>visibility</v-icon>
+          </v-btn>
+        </td>
         <td>{{ props.item.centro }}</td>
         <td class="text-xs-right">{{ props.item.nivel_servicio }}</td>
         <td class="text-xs-right">{{ props.item.nombre_completo }}</td>
@@ -69,24 +80,6 @@
         <td class="text-xs-right">{{ props.item.fecha_alta }}</td>
         <td class="text-xs-right">{{ props.item.fecha_baja }}</td>
         <td class="text-xs-right">{{ props.item.fecha_egreso }}</td>
-        <td class="text-xs-center">
-          <v-btn
-                    color="primary"
-                    dark
-                    @click="showPersonInfo(props.item)"
-                    fab
-                    small
-            >
-                <v-icon>visibility</v-icon>
-            </v-btn>
-        </td>
-        <!--<td class="text-xs-center"><v-btn-->
-                <!--small-->
-                <!--@click.native="showPersonInfo()"-->
-                <!--color="primary"-->
-                <!--fab-->
-        <!--&gt;<v-icon>visibility</v-icon></v-btn></td>-->
-
       </template>
     </v-data-table>
     <!-- ./Datatable -->
@@ -115,7 +108,19 @@
             <strong>Sexo:</strong> {{dialog_ops.dialogContent.sexo}}
           </div>
           <div>
-            <strong>Año | División:</strong> {{dialog_ops.dialogContent.año}} {{dialog_ops.dialogContent.division}}
+            <strong>Domicilio:</strong> {{dialog_ops.dialogContent.calle_nombre}} {{dialog_ops.calle_nro}}
+          </div>
+          <div>
+            <strong>Teléfono:</strong> {{dialog_ops.dialogContent.telefono_nro}}
+          </div>
+          <div>
+            <strong>Email:</strong> {{dialog_ops.dialogContent.email}}
+          </div>
+          <div>
+            <strong>Lugar de Nacimiento:</strong> {{dialog_ops.dialogContent.pcia_nac}}
+          </div>
+          <div>
+            <strong>Observaciones</strong> {{dialog_ops.dialogContent.observaciones}}
           </div>
         </v-card-text>
         <v-card-actions>
@@ -156,6 +161,7 @@
     data () {
       return {
         headers: [
+          { text: 'Más Detalles', value: 'detalles' , sortable: false },
           { text: 'Centro', value: 'centro', sortable: false  },
           { text: 'Nivel de servicio', value: 'nivel_servicio' , sortable: false },
           { text: 'Nombre', value: 'nombre_completo' , sortable: false },
@@ -166,7 +172,6 @@
           { text: 'Fecha Alta', value: 'fecha_alta' , sortable: false },
           { text: 'Fecha Baja', value: 'fecha_baja' , sortable: false },
           { text: 'Fecha Egreso', value: 'fecha_egreso' , sortable: false },
-          { text: 'Más Detalles', value: 'detalles' , sortable: false },
         ],
         response: [],
 
