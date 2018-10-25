@@ -22,11 +22,6 @@ const menu = {
       icon: 'account_circle',
       title: 'Secciones',
       name: 'matriculas_cuantitativa_por_seccion'
-    },
-    {
-      icon: 'power_settings_new',
-      title: 'Cerrar Sesion',
-      name: 'login'
     }
   ]
 };

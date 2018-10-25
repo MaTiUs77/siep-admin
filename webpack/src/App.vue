@@ -52,7 +52,7 @@
     },
     created(){
       console.log('APP Created');
-      store.dispatch('extractToken');
+      store.dispatch('LOGIN_API_fetchUserRemember');
     },
     methods: {
     },

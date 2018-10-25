@@ -21,14 +21,13 @@
   import router from '../router'
 
   export default {
-    name: "login",
+    name: "login_social",
     data(){
       return{
         apigw: process.env.SIEP_API_GW_INGRESS
       }
     },
     created: function(){
-      console.log('page/login');
       store.commit('updateTitle',"SIEP | Iniciar sesión");
     },
     computed:{

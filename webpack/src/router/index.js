@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // Paginas
-import login from '@/pages/login'
+import login_api from '@/pages/login_api'
 import home from '@/pages/home'
 import rrhh_alumnos_nominal from '@/pages/rrhh/alumnos_nominal'
 import matriculas_cuantitativa_por_seccion from '@/pages/matriculas/cuantitativa_por_seccion'
@@ -14,13 +14,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: login
+      component: home
     },
     {
       path: '/home',
       name: 'home',
       component: home
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login_api
     },
     {
       path: '/rrhh/alumnos_nominal',
