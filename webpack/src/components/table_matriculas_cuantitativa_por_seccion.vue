@@ -6,7 +6,7 @@
       label
       small
     >
-      Inscripciones: {{ response.total || 'Sin resultados' }}
+      Secciones: {{ response.total || 'Sin resultados' }}
     </v-chip>
 
     <!-- Descargar excel -->
