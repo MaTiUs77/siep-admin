@@ -21,6 +21,9 @@
   import TableMatriculasCuantitativaPorSeccion from '../../components/table_matriculas_cuantitativa_por_seccion'
 
   export default {
+    created: function(){
+      store.commit('updateTitle',"SIEP | Secciones");
+    },
     components :{
       SelectApiForms,
       TableMatriculasCuantitativaPorSeccion,

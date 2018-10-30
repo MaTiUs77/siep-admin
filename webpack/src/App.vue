@@ -3,26 +3,25 @@
 
     <!-- MENU DE NAVEGACION !-->
     <v-navigation-drawer
-      temporary
+      persistent
       v-model="drawer"
       enable-resize-watcher
       fixed
       app
     >
+      <!-- Componente UserSidebar -->
       <user-sidebar />
-      <v-divider/>
+      <v-divider></v-divider>
+      <!-- Componente MenuSidebar -->
       <menu-sidebar />
-    
+
     </v-navigation-drawer>
     <!-- FIN MENU DE NAVEGACION !-->
 
-    <v-toolbar
-      app
-      :color="headerColor"
-      dark
-    >
+    <!-- Menu toolbar !-->
+    <v-toolbar app :color="menu_toolbar.header_color" dark >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-toolbar-title v-text="menu_toolbar.title" ></v-toolbar-title>
     </v-toolbar>
 
     <!-- CONTENIDO DE NAVEGACION !-->
@@ -42,13 +41,18 @@
     components :{ MenuSidebar, UserSidebar },
     data () {
       return {
-        title: 'SIEP | Admin',
-        drawer: true,
-        headerColor: 'primary'
+        drawer: false,
+        toolbar_disabled:true
       }
     },
-    created () {
-      this.headerColor = navigator.onLine ? 'primary' : 'black'
+    computed: {
+      menu_toolbar() {
+        return store.state.menu_toolbar;
+      }
+    },
+    created(){
+      console.log('APP Created');
+      store.dispatch('LOGIN_API_fetchUserRemember');
     },
     methods: {
     },

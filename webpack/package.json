@@ -1,5 +1,5 @@
 {
-  "name": "pwa",
+  "name": "admin-pwa",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "MaTiUs77 <matius77@gmail.com>",
@@ -13,10 +13,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.2",
+    "vue-material-design-icons": "^1.5.1",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.0",
     "vuex": "^3.0.1",
-    "vuex-pathify": "^1.1.0"
+    "webpack-remove-serviceworker-plugin": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.5",

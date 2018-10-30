@@ -33,6 +33,9 @@
 
 
   export default {
+    created: function(){
+      store.commit('updateTitle',"SIEP | Inscripciones Nominales");
+    },
     components :{
       SelectApiForms,
       TableAlumnosNominal

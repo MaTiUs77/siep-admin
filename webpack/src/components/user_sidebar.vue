@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar flat class="transparent">
+    <v-toolbar flat class="transparent" v-if="logged">
       <v-list class="pa-0">
         <v-list-tile avatar>
           <v-list-tile-avatar>
@@ -8,29 +8,31 @@
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ user.name }}</v-list-tile-title>
+            <v-list-tile-title>{{user.username}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-toolbar>
+    <v-toolbar flat class="transparent" v-if="!logged">
+      <v-btn  to="/login" dark color="green darken-5" large block>Iniciar sesión</v-btn>
+    </v-toolbar>
   </div>
+
 </template>
 
 <script>
-  import { sync } from 'vuex-pathify';
-
   export default {
-    data () {
+    data() {
       return {
-        networkStatus: null
       }
     },
-    created: function () {
-    },
-    methods: {
-    },
     computed: {
-      user: sync('user')
+      user() {
+        return store.state.login_api.user
+      },
+      logged() {
+        return store.state.login_api.loggedIn;
+      }
     }
   }
 </script>
