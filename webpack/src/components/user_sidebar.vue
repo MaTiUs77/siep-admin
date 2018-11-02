@@ -14,7 +14,7 @@
       </v-list>
     </v-toolbar>
     <v-toolbar flat class="transparent" v-if="!logged">
-      <v-btn  to="/login" dark color="green darken-5" large block>Iniciar sesión</v-btn>
+      <v-btn  to="/login" dark color="green darken-5" large block class="title">Iniciar sesion</v-btn>
     </v-toolbar>
   </div>
 
