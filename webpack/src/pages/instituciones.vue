@@ -40,13 +40,7 @@
                   <v-card>
                       <v-divider></v-divider>
                       <v-list dense>
-                          <h3 class="subheading mb-0 align-start">{{ item.nombre }}</h3>
-                        <v-list-tile>
-                          <v-list-tile-content class="align-content-center"><strong>Dirección:</strong> {{ item.direccion }}</v-list-tile-content>
-                        </v-list-tile>
-                        <v-list-tile>
-                          <v-list-tile-content class="align-content-center"><strong>Teléfono:</strong> {{ item.telefono }}</v-list-tile-content>
-                        </v-list-tile>
+                        <h3 class="subheading mb-0 align-start"><strong>CUE: </strong>{{ item.cue }} - {{ item.nombre }}</h3>
                       </v-list>
                     <v-btn @click="showCenterInfo(item)" outline color="indigo">
                       Datos de Contacto
@@ -63,6 +57,9 @@
             <v-card>
               <v-card-title class="headline">{{dialog_ops.dialogTitle}}</v-card-title>
               <v-card-text>
+                <div>
+                  <strong>CUE:</strong> {{dialog_ops.dialogContent.cue}}
+                </div>
                 <div>
                   <strong>Institución:</strong> {{dialog_ops.dialogContent.nombre}}
                 </div>
@@ -206,6 +203,7 @@
             });
 
             vm.resultado = render;
+            console.log(render);
 
             vm.searching = false;
           })
