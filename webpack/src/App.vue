@@ -22,6 +22,11 @@
     <v-toolbar app :color="menu_toolbar.header_color" dark >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="menu_toolbar.title" ></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn v-on:click="logout()" color="blue-grey darken-2" v-if="logged" dark >
+        <v-icon>power_settings_new</v-icon>
+        Cerrar Sesion
+      </v-btn>
     </v-toolbar>
 
     <!-- CONTENIDO DE NAVEGACION !-->
@@ -48,6 +53,12 @@
     computed: {
       menu_toolbar() {
         return store.state.menu_toolbar;
+      },
+      user() {
+        return store.state.login_api.user
+      },
+      logged() {
+        return store.state.login_api.loggedIn;
       }
     },
     created(){
@@ -55,6 +66,9 @@
       store.dispatch('LOGIN_API_fetchUserRemember');
     },
     methods: {
+      logout() {
+        store.dispatch('LOGIN_API_logout');
+      }
     },
     name: 'App'
   }

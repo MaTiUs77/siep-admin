@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // Paginas
-import login_api from '@/pages/login_api'
+import login_api from '@/components/login_api'
 import home from '@/pages/home'
 import rrhh_alumnos_nominal from '@/pages/rrhh/alumnos_nominal'
 import matriculas_cuantitativa_por_seccion from '@/pages/matriculas/cuantitativa_por_seccion'
@@ -24,7 +24,7 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: login_api
+      component: home
     },
     {
       path: '/rrhh/alumnos_nominal',
@@ -40,6 +40,11 @@ export default new Router({
       path:'/instituciones',
       name:'instituciones',
       component: instituciones
+    },
+    {
+      path:'/logout',
+      name:'logout',
+      component: login_api
     }
   ]/*,
   scrollBehavior: function(to, from, savedPosition) {

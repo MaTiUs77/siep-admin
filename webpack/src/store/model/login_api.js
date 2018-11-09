@@ -83,27 +83,32 @@ const module = {
 
         // Clear all
         commit('LOGIN_API_clear');
-
         const curl = axios.create({
           baseURL: process.env.SIEP_API_GW_INGRESS
         });
 
         curl.post('/auth/login', payload)
-          .then(function (response) {
-            // handle success
-            commit('LOGIN_API_updateToken', response.data.token);
-            commit('LOGIN_API_running', false);
+        .then(function (response) {
+          // handle success
+          commit('LOGIN_API_updateToken', response.data.token);
+          commit('LOGIN_API_running', false);
 
-            dispatch('LOGIN_API_fetchUser');
-          })
-          .catch(function (error) {
-            // handle error
-            alert(error.response.data.message);
+          dispatch('LOGIN_API_fetchUser');
+        })
+        .catch(function (error) {
+          // handle error
+          alert(error.response.data.message);
 
-            commit('LOGIN_API_clear');
-            commit('LOGIN_API_running', false);
-          });
+          commit('LOGIN_API_clear');
+          commit('LOGIN_API_running', false);
+        });
       }
+
+    },
+    LOGIN_API_logout:function({commit}){
+      commit('LOGIN_API_clear');
+      commit('LOGIN_API_running', false);
+      router.push('/home');
     },
     // Obtiene informacion de usuario con con el TOKEN
     LOGIN_API_fetchUser: function ({commit, dispatch, state}) {
