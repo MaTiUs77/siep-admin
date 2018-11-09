@@ -4,24 +4,29 @@ const menu = {
     {
       icon: 'home',
       title: 'Inicio',
-      name: 'home'
+      name: 'home',
+      show:''
 
     },
     {
       icon:'school',
       title:'Instituciones',
-      name:'instituciones'
+      name:'instituciones',
+      show:''
+
     },
     {
       icon: 'account_circle',
       title: 'Secciones',
-      name: 'matriculas_cuantitativa_por_seccion'
+      name: 'matriculas_cuantitativa_por_seccion',
+      show:'logged'
     },
 
    {
      icon: 'account_circle',
      title: 'Inscripciones Nominales',
-     name: 'rrhh_alumnos_nominal'
+     name: 'rrhh_alumnos_nominal',
+     show:'logged'
    }
  ]
 };
