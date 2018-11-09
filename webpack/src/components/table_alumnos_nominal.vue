@@ -120,6 +120,9 @@
             <strong>Lugar de Nacimiento:</strong> {{dialog_ops.dialogContent.pcia_nac}}
           </div>
           <div>
+            <strong>Fecha de Nacimiento:</strong> {{dialog_ops.dialogContent.fecha_nac}}
+          </div>
+          <div>
             <strong>Observaciones</strong> {{dialog_ops.dialogContent.observaciones}}
           </div>
         </v-card-text>

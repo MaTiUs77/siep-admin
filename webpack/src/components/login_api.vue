@@ -4,7 +4,6 @@
       <v-flex xs12 sm4 elevation-6>
         <v-toolbar class="blue darken-4">
           <v-toolbar-title class="white--text"><h4>Ingrese sus datos de usuario</h4></v-toolbar-title>
-          </v-toolbar-items>
         </v-toolbar>
         <v-card>
           <v-card-text class="pt-4">
@@ -42,12 +41,11 @@
       <v-flex xs12 sm4 elevation-6>
         <v-toolbar class="success darken-4">
           <v-toolbar-title class="white--text"><h4>Bienvenido {{ user.username}}</h4></v-toolbar-title>
-          </v-toolbar-items>
         </v-toolbar>
         <v-card>
           <v-card-text class="pt-4">
             <div>
-              Ingreso correctamente al sistema, por favor use las opciones del menu a su izquierda
+              Ingresó correctamente al sistema, por favor use las opciones del menu a su izquierda
             </div>
           </v-card-text>
         </v-card>
@@ -56,7 +54,7 @@
   </v-container>
 </template>
 <script>
-  import router from '../router'
+  import router from '../router/index'
 
   export default {
     name: "login_api",
@@ -69,7 +67,8 @@
             password: ''
           },
           valid: false,
-          password_hidden: true
+          password_hidden: true,
+          logueado:false,
         },
         rule: {
           username: [
@@ -81,8 +80,12 @@
         },
       }
     },
+    beforeCreate:function(){
+
+    },
     created: function(){
-      store.commit('updateTitle',"SIEP | Iniciar sesión");
+      // store.commit('updateTitle',"SIEP | Iniciar sesión");
+      // this.chkLogged();
     },
     computed:{
       user(){
@@ -95,6 +98,14 @@
         return store.state.login_api.loginIsRunning
       }
     },
+    watch:{
+      logged() {
+        if(!this.logged){
+          this.form.data.password ="";
+          this.form.data.username ="";
+        }
+      }
+    },
     methods:{
       submit () {
         if (this.$refs.form.validate()) {
@@ -104,6 +115,11 @@
       },
       clear () {
         this.$refs.form.reset()
+      },
+      logout() {
+        this.form.data.username="";
+        this.form.data.password="";
+        store.dispatch('LOGIN_API_logout');
       }
     }
   }

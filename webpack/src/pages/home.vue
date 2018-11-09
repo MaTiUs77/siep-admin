@@ -2,27 +2,34 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <img src="@/assets/membretes-sup-edu.jpg" alt="SIEP" class="mb-5">
-        <blockquote>
+        <img src="@/assets/membretes-sup-edu2.jpg" alt="SIEP" >
+        <!--<blockquote>
           "Sistema de Información Educativa Provincial."
           <footer>
             <small>
               <em>&mdash;Tierra del Fuego</em>
             </small>
           </footer>
-        </blockquote>
+        </blockquote>-->
+        <login_api></login_api>
+
       </v-layout>
     </v-slide-y-transition>
   </v-container>
+
 </template>
+
 
 <script>
   import router from '../router'
+  import login_api from '../components/login_api'
 
   export default{
     created: function(){
-      console.log('page/home');
       store.commit('updateTitle',"SIEP | Admin");
+    },
+    components:{
+      login_api
     },
     computed:{
       user(){
