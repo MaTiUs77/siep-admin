@@ -1,53 +1,64 @@
 <template>
     <v-container fluid text-xs-center id="top">
       <v-layout flex align-center justify-center>
+
         <v-flex xs12 md6 lg8>
+            <v-flex xs12 md12 lg12 >
+              <v-text-field
+                v-model="filtro.nombre"
+                label="Busque por Nombre de Institución"
+              ></v-text-field>
+            </v-flex>
 
-                  <v-combobox
-                          v-model="filtro.ciudad"
-                          :items="combo_ciudades"
-                          label="Seleccione Ciudad"
-                  ></v-combobox>
+          <v-divider></v-divider>
 
-                  <v-combobox
-                          v-model="filtro.nivel_servicio"
-                          :items="combo_niveles"
-                          label="Seleccione Nivel"
-                  ></v-combobox>
+          <div class="text-xs-center"><v-chip label>Si lo desea, además puede utilizar los filtros listados aquí debajo</v-chip></div>
 
-                  <v-combobox
-                          v-model="filtro.sector"
-                          :items="combo_sectores"
-                          label="Seleccione Sector"
-                  ></v-combobox>
+            <v-combobox
+                    v-model="filtro.ciudad"
+                    :items="combo_ciudades"
+                    label="Seleccione Ciudad"
+            ></v-combobox>
 
-                  <v-container>
-                      <v-btn
-                              class="mx-0"
-                              color="primary"
-                              @click="findInstitution"
-                              :loading="searching"
-                      >
-                          <v-icon left large>search</v-icon>Buscar
+            <v-combobox
+                    v-model="filtro.nivel_servicio"
+                    :items="combo_niveles"
+                    label="Seleccione Nivel"
+            ></v-combobox>
 
-                      </v-btn>
-                  </v-container>
+            <v-combobox
+                    v-model="filtro.sector"
+                    :items="combo_sectores"
+                    label="Seleccione Sector"
+            ></v-combobox>
+
+            <v-container>
+                <v-btn
+                        class="mx-0"
+                        color="primary"
+                        @click="findInstitution"
+                        :loading="searching"
+                >
+                    <v-icon left large>search</v-icon>Buscar
+
+                </v-btn>
+            </v-container>
 
 
 
-              <!-- Resultados de busqueda -->
-              <div v-for="item in resultado">
-                  <v-card>
-                      <v-divider></v-divider>
-                      <v-list dense>
-                        <h3 class="subheading mb-0 align-start"><strong>CUE: </strong>{{ item.cue }} - {{ item.nombre }}</h3>
-                      </v-list>
-                    <v-btn @click="showCenterInfo(item)" outline color="indigo">
-                      Datos de Contacto
-                    </v-btn>
+            <!-- Resultados de busqueda -->
+            <div v-for="item in resultado">
+                <v-card>
+                    <v-divider></v-divider>
+                    <v-list dense>
+                      <h3 class="subheading mb-0 align-start"><strong>CUE: </strong>{{ item.cue }} - {{ item.nombre }}</h3>
+                    </v-list>
+                  <v-btn @click="showCenterInfo(item)" outline color="indigo">
+                    Datos de Contacto
+                  </v-btn>
 
-                  </v-card>
-              </div>
+                </v-card>
+            </div>
 
           <!-- Modal -->
           <v-dialog
@@ -154,6 +165,8 @@
 
       filtro:{},
       resultado:[],
+      findCentroRunning:false,
+      centro_nombre:"",
 
       combo_ciudades: ['Ushuaia','Tolhuin','Rio Grande'],
       combo_niveles: ['Común - Inicial','Común - Primario','Común - Secundario'],
@@ -214,6 +227,9 @@
 
             vm.searching = false;
           });
+      },
+      findInstitutionByName:function(){
+        var vm = this;
       },
       showCenterInfo(centro){
         let vm = this;
