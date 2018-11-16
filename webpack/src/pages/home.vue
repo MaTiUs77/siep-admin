@@ -26,7 +26,7 @@
 
   export default{
     created: function(){
-      store.commit('updateTitle',"SIEP | Admin");
+      store.commit('updateTitle',"SIEP | Servicio");
     },
     components:{
       login_api
