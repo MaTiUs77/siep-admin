@@ -1,9 +1,8 @@
-<template>
-    <v-container fluid text-xs-center id="top">
-      <v-layout flex align-center justify-center>
-
-        <v-flex xs12 md6 lg8>
-            <v-flex xs12 md12 lg12 >
+<template >
+    <v-container fluid text-xs-center >
+      <v-layout id="top" flex align-content-space-between justify-center >
+        <v-flex class="scrollable-content" xs12 md6 lg5 xl5 >
+            <v-flex xs12 md12 lg12 xl12>
               <v-text-field
                 v-model="filtro.nombre"
                 label="Busque por Nombre de Institución"
@@ -111,26 +110,32 @@
           </v-dialog>
           <!-- /Modal -->
 
-            <v-card-text style="height: 100px; position: relative">
-                <v-fab-transition>
-                    <v-btn
-                            v-show="!hidden"
-                            color="primary"
-                            dark
-                            fixed
-                            bottom
-                            right
-                            fab
-                            @click="$vuetify.goTo(target, options)"
-                            hint="Subir al Inicio"
-                    >
-                        <v-icon>vertical_align_top</v-icon>
-                    </v-btn>
-                </v-fab-transition>
-            </v-card-text>
+            <!--<v-card-text style="height: 100px; position: relative">-->
+                <!--<v-fab-transition>-->
+                    <!--<v-btn-->
+                            <!--v-show="!hidden"-->
+                            <!--color="primary"-->
+                            <!--dark-->
+                            <!--fixed-->
+                            <!--bottom-->
+                            <!--left-->
+                            <!--fab-->
+                            <!--@click="goTop"-->
+                            <!--hint="Subir al Inicio"-->
+                    <!--&gt;-->
+                      <!--&lt;!&ndash; @click="$vuetify.goTo(target, options)" &ndash;&gt;-->
+                        <!--<v-icon>vertical_align_top</v-icon>-->
+                    <!--</v-btn>-->
+                <!--</v-fab-transition>-->
+            <!--</v-card-text>-->
+        </v-flex>
+        <!-- Google Maps -->
+        <v-flex xs12 md6 lg6 xl6>
+            <google-map :coords="coords" :markers_array="markers"/>
         </v-flex>
       </v-layout>
     </v-container>
+
 </template>
 
 <script>
@@ -140,12 +145,22 @@
 
   // Modelo de Instituciones
   import instituciones from '../store/model/instituciones'
+  import GoogleMap from "../components/GoogleMap";
 
   export default {
+    components: {GoogleMap},
     created: function(){
       store.commit('updateTitle',"SIEP | Instituciones");
     },
     data: ()=>({
+
+      coords:{
+        latitud: -68.2746,
+        longitud: -68.3186003,
+      },
+      markers:[],
+
+
       type: 'number',
       number: 9999,
       selector: '#top',
@@ -212,12 +227,16 @@
         })
           .then(function (response) {
             let render = response.data.map(function(x) {
+              let res ={
+                position:{
+                  lat: x.lng,
+                  lng:x.lat
+                }};
+              vm.markers.push(res);
               return x;
             });
 
             vm.resultado = render;
-            console.log(render);
-
             vm.searching = false;
           })
           .catch(function (error) {
@@ -243,9 +262,14 @@
             // let render = response.data.map(function(x) {
             //   return x;
             // });
-            console.log(response);
+
             vm.dialog_ops.dialogContent = response.data;
-            vm.dialog_ops.dialog = true;
+            vm.coords ={
+              latitud: response.data.lng,
+              longitud: response.data.lat
+            };
+            console.log(vm.coords);
+            // vm.dialog_ops.dialog = true;
           })
           .catch(function (error) {
             vm.error = error.message;
@@ -262,12 +286,24 @@
       goTop:function(){
         var element = document.getElementById("top");
         var top = element.offsetTop;
-        window.scrollTo(0, top);
+        element.scrollTo(0,0);
       }
     }
   }
 </script>
 
 <style scoped>
+
+  .scrollable-content {
+    height: 500px;
+    background: white;
+    flex-grow: 1;
+
+    overflow: auto;
+
+    /* for Firefox */
+    min-height: 0;
+  }
+
 
 </style>
