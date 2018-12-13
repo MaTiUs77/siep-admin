@@ -3,11 +3,12 @@
 
     <!-- MENU DE NAVEGACION !-->
     <v-navigation-drawer
-      persistent
       v-model="drawer"
+      app
       enable-resize-watcher
       fixed
-      app
+      clipped
+      temporary
     >
       <!-- Componente UserSidebar -->
       <user-sidebar />
