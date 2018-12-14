@@ -60,54 +60,54 @@
             </div>
 
           <!-- Modal -->
-          <v-dialog
-            v-model="dialog_ops.dialog"
-            max-width="490"
-          >
-            <v-card>
-              <v-card-title class="headline">{{dialog_ops.dialogTitle}}</v-card-title>
-              <v-card-text>
-                <div>
-                  <strong>CUE:</strong> {{dialog_ops.dialogContent.cue}}
-                </div>
-                <div>
-                  <strong>Institución:</strong> {{dialog_ops.dialogContent.nombre}}
-                </div>
-                <div>
-                  <strong>Domicilio:</strong> {{dialog_ops.dialogContent.direccion}}
-                </div>
-                <div>
-                  <strong>Barrio:</strong> {{dialog_ops.dialogContent.barrio.nombre}}
-                </div>
-                <div>
-                  <strong>Código Postal:</strong> {{dialog_ops.dialogContent.cp}}
-                </div>
-                <div>
-                  <strong>Código Localidad:</strong> {{dialog_ops.dialogContent.codigo_localidad}}
-                </div>
-                <div>
-                  <strong>Ciudad:</strong> {{dialog_ops.dialogContent.ciudad.nombre}}
-                </div>
-                <div>
-                  <strong>Teléfono:</strong> {{dialog_ops.dialogContent.telefono}}
-                </div>
-                <div>
-                  <strong>Email:</strong> {{dialog_ops.dialogContent.email}}
-                </div>
-                <div>
-                  <strong>Url:</strong> {{dialog_ops.dialogContent.url}}
-                </div>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="green darken-1"
-                  flat="flat"
-                  @click="dialog_ops.dialog = false"
-                >Aceptar</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <!--<v-dialog-->
+            <!--v-model="dialog_ops.dialog"-->
+            <!--max-width="490"-->
+          <!--&gt;-->
+            <!--<v-card>-->
+              <!--<v-card-title class="headline">{{dialog_ops.dialogTitle}}</v-card-title>-->
+              <!--<v-card-text>-->
+                <!--<div>-->
+                  <!--<strong>CUE:</strong> {{dialog_ops.dialogContent.cue}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Institución:</strong> {{dialog_ops.dialogContent.nombre}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Domicilio:</strong> {{dialog_ops.dialogContent.direccion}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Barrio:</strong> {{dialog_ops.dialogContent.barrio.nombre}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Código Postal:</strong> {{dialog_ops.dialogContent.cp}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Código Localidad:</strong> {{dialog_ops.dialogContent.codigo_localidad}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Ciudad:</strong> {{dialog_ops.dialogContent.ciudad.nombre}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Teléfono:</strong> {{dialog_ops.dialogContent.telefono}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Email:</strong> {{dialog_ops.dialogContent.email}}-->
+                <!--</div>-->
+                <!--<div>-->
+                  <!--<strong>Url:</strong> {{dialog_ops.dialogContent.url}}-->
+                <!--</div>-->
+              <!--</v-card-text>-->
+              <!--<v-card-actions>-->
+                <!--<v-spacer></v-spacer>-->
+                <!--<v-btn-->
+                  <!--color="green darken-1"-->
+                  <!--flat="flat"-->
+                  <!--@click="dialog_ops.dialog = false"-->
+                <!--&gt;Aceptar</v-btn>-->
+              <!--</v-card-actions>-->
+            <!--</v-card>-->
+          <!--</v-dialog>-->
           <!-- /Modal -->
 
             <!--<v-card-text style="height: 100px; position: relative">-->
@@ -222,7 +222,7 @@
           baseURL: vm.apigw
         });
 
-        return curl.get('/api/forms/centros',{
+        return curl.get('/api/v1/centros',{
           params: vm.filtro
         })
           .then(function (response) {
@@ -232,11 +232,14 @@
                   lat: x.lng,
                   lng:x.lat
                 }};
-              vm.markers.push(res);
+              if(x.lng != 0 || x.lat != 0){
+                vm.markers.push(res);
+              }
               return x;
             });
 
             vm.resultado = render;
+            console.log(vm.resultado);
             vm.searching = false;
           })
           .catch(function (error) {
@@ -253,32 +256,10 @@
       showCenterInfo(centro){
         let vm = this;
 
-        const curl = axios.create({
-          baseURL: vm.apigw
-        });
-
-        return curl.get('/api/centros/'+centro.id)
-          .then(function (response) {
-            // let render = response.data.map(function(x) {
-            //   return x;
-            // });
-
-            vm.dialog_ops.dialogContent = response.data;
-            vm.coords ={
-              latitud: response.data.lng,
-              longitud: response.data.lat
-            };
-            console.log(vm.coords);
-            // vm.dialog_ops.dialog = true;
-          })
-          .catch(function (error) {
-            vm.error = error.message;
-            vm.loading_nivel = false;
-            console.log(vm.error);
-
-          });
-
-
+        vm.coords ={
+          latitud: centro.lng,
+          longitud: centro.lat
+        };
       },
       goBack:function(){
         router.go(-1);
