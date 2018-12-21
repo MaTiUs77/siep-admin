@@ -2,7 +2,7 @@
     <gmap-map
       :center="center"
       :zoom="zoom"
-      style="margin:15px; width:100%;  height: 450px;"
+      style="margin:13px; width:100%;  height: 450px;"
       ref="mapRef"
     >
       <gmap-marker
