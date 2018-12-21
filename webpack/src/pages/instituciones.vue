@@ -39,7 +39,6 @@
                         :loading="searching"
                 >
                     <v-icon left large>search</v-icon>Buscar
-
                 </v-btn>
             </v-container>
 
