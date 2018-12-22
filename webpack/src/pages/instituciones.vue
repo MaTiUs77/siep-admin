@@ -231,7 +231,7 @@
                   lat: x.lng,
                   lng:x.lat
                 }};
-              if(x.lng != 0 || x.lat != 0){
+              if(x.lng != 0 && x.lat != 0 && !isNaN(x.lng) && !isNaN(x.lat)){
                 vm.markers.push(res);
               }
               return x;
