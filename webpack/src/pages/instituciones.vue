@@ -52,61 +52,61 @@
                       <h3 class="subheading mb-0 align-start"><strong>CUE: </strong>{{ item.cue }} - {{ item.nombre }}</h3>
                     </v-list>
                   <v-btn @click="showCenterInfo(item)" outline color="indigo">
-                    Datos de Contacto
+                    Localizar Centro
                   </v-btn>
 
                 </v-card>
             </div>
 
           <!-- Modal -->
-          <!--<v-dialog-->
-            <!--v-model="dialog_ops.dialog"-->
-            <!--max-width="490"-->
-          <!--&gt;-->
-            <!--<v-card>-->
-              <!--<v-card-title class="headline">{{dialog_ops.dialogTitle}}</v-card-title>-->
-              <!--<v-card-text>-->
-                <!--<div>-->
-                  <!--<strong>CUE:</strong> {{dialog_ops.dialogContent.cue}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Institución:</strong> {{dialog_ops.dialogContent.nombre}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Domicilio:</strong> {{dialog_ops.dialogContent.direccion}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Barrio:</strong> {{dialog_ops.dialogContent.barrio.nombre}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Código Postal:</strong> {{dialog_ops.dialogContent.cp}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Código Localidad:</strong> {{dialog_ops.dialogContent.codigo_localidad}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Ciudad:</strong> {{dialog_ops.dialogContent.ciudad.nombre}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Teléfono:</strong> {{dialog_ops.dialogContent.telefono}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Email:</strong> {{dialog_ops.dialogContent.email}}-->
-                <!--</div>-->
-                <!--<div>-->
-                  <!--<strong>Url:</strong> {{dialog_ops.dialogContent.url}}-->
-                <!--</div>-->
-              <!--</v-card-text>-->
-              <!--<v-card-actions>-->
-                <!--<v-spacer></v-spacer>-->
-                <!--<v-btn-->
-                  <!--color="green darken-1"-->
-                  <!--flat="flat"-->
-                  <!--@click="dialog_ops.dialog = false"-->
-                <!--&gt;Aceptar</v-btn>-->
-              <!--</v-card-actions>-->
-            <!--</v-card>-->
-          <!--</v-dialog>-->
+          <!-- <v-dialog
+            v-model="dialog_ops.dialog"
+            max-width="490"
+          >
+            <v-card>
+              <v-card-title class="headline">{{dialog_ops.dialogTitle}}</v-card-title>
+              <v-card-text>
+                <div>
+                  <strong>CUE:</strong> {{dialog_ops.dialogContent.cue}}
+                </div>
+                <div>
+                  <strong>Institución:</strong> {{dialog_ops.dialogContent.nombre}}
+                </div>
+                <div>
+                  <strong>Domicilio:</strong> {{dialog_ops.dialogContent.direccion}}
+                </div>
+                <div>
+                  <strong>Barrio:</strong> {{dialog_ops.dialogContent.barrio.nombre}}
+                </div>
+                <div>
+                  <strong>Código Postal:</strong> {{dialog_ops.dialogContent.cp}}
+                </div>
+                <div>
+                  <strong>Código Localidad:</strong> {{dialog_ops.dialogContent.codigo_localidad}}
+                </div>
+                <div>
+                  <strong>Ciudad:</strong> {{dialog_ops.dialogContent.ciudad.nombre}}
+                </div>
+                <div>
+                  <strong>Teléfono:</strong> {{dialog_ops.dialogContent.telefono}}
+                </div>
+                <div>
+                  <strong>Email:</strong> {{dialog_ops.dialogContent.email}}
+                </div>
+                <div>
+                  <strong>Url:</strong> {{dialog_ops.dialogContent.url}}
+                </div>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="green darken-1"
+                  flat="flat"
+                  @click="dialog_ops.dialog = false"
+                >Aceptar</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog> -->
           <!-- /Modal -->
 
             <!--<v-card-text style="height: 100px; position: relative">-->
@@ -220,7 +220,7 @@
         const curl = axios.create({
           baseURL: vm.apigw
         });
-
+        vm.filtro.with='barrio';
         return curl.get('/api/v1/centros',{
           params: vm.filtro
         })
@@ -230,7 +230,9 @@
                 position:{
                   lat: x.lng,
                   lng:x.lat
-                }};
+                },
+                data:x
+              };
               if(x.lng != 0 && x.lat != 0 && !isNaN(x.lng) && !isNaN(x.lat)){
                 vm.markers.push(res);
               }
@@ -238,7 +240,6 @@
             });
 
             vm.resultado = render;
-            console.log(vm.resultado);
             vm.searching = false;
           })
           .catch(function (error) {
@@ -254,7 +255,6 @@
       },
       showCenterInfo(centro){
         let vm = this;
-
         vm.coords ={
           latitud: centro.lng,
           longitud: centro.lat
