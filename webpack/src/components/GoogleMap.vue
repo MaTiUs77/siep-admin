@@ -31,6 +31,7 @@
         longitud:0,
         center: { lat : 0, lng : 0},
         markers: [],
+        markers_temp: [],
         places: [],
         currentPlace: null,
         zoom:15,
@@ -74,6 +75,15 @@
             bounds.extend(m.position)
           }
           this.$refs.mapRef.fitBounds(bounds)
+          this.markers_temp = markers;
+        }else if(markers.length < 1 && this.markers_temp.length > 0){
+          // Se limpian los marcadores mostrados en el mapa en cada nueva busqueda
+          this.markers_temp.map(function(marker){
+            if(!_.isEmpty(marker.position.lat) && !_.isEmpty(marker.position.lng)){
+              marker.setMap(null);
+            }
+          });
+          this.markers_temp = [];
         }
       }
     },
@@ -110,7 +120,7 @@
         this.center = m.position;
         this.infoWindowPos = m.position;
         this.infoContent =
-        '<div style="text-align:left;"><strong>CUE:</strong> '+m.data.cue+'</div>'+
+        '<div style="text-align:left;"><strong>CUE Anexo:</strong> '+m.data.cue+'</div>'+
         '<div style="text-align:left;"><strong>Nombre:</strong> '+m.data.nombre+'</div>'+
         '<div style="text-align:left;"><strong>Dirección:</strong> '+m.data.direccion+'</div>'+
         '<div style="text-align:left;"><strong>Barrio:</strong> '+m.data.barrio.nombre+'</div>'+

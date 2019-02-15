@@ -3,10 +3,15 @@
       <v-layout id="top" flex align-content-space-between justify-center >
         <v-flex class="scrollable-content" xs12 md6 lg5 xl5 >
             <v-flex xs12 md12 lg12 xl12>
-              <v-text-field
+              <!-- <v-text-field
                 v-model="filtro.nombre"
                 label="Busque por Nombre de Institución"
-              ></v-text-field>
+              ></v-text-field> -->
+              <select-api-forms 
+              v-model="filtro.nombre" 
+              form="centros" 
+              label="Busque por Nombre de Institución" 
+              custom="nombre"/>
             </v-flex>
 
           <v-divider></v-divider>
@@ -43,7 +48,6 @@
             </v-container>
 
 
-
             <!-- Resultados de busqueda -->
             <div v-for="item in resultado">
                 <v-card>
@@ -58,75 +62,6 @@
                 </v-card>
             </div>
 
-          <!-- Modal -->
-          <!-- <v-dialog
-            v-model="dialog_ops.dialog"
-            max-width="490"
-          >
-            <v-card>
-              <v-card-title class="headline">{{dialog_ops.dialogTitle}}</v-card-title>
-              <v-card-text>
-                <div>
-                  <strong>CUE:</strong> {{dialog_ops.dialogContent.cue}}
-                </div>
-                <div>
-                  <strong>Institución:</strong> {{dialog_ops.dialogContent.nombre}}
-                </div>
-                <div>
-                  <strong>Domicilio:</strong> {{dialog_ops.dialogContent.direccion}}
-                </div>
-                <div>
-                  <strong>Barrio:</strong> {{dialog_ops.dialogContent.barrio.nombre}}
-                </div>
-                <div>
-                  <strong>Código Postal:</strong> {{dialog_ops.dialogContent.cp}}
-                </div>
-                <div>
-                  <strong>Código Localidad:</strong> {{dialog_ops.dialogContent.codigo_localidad}}
-                </div>
-                <div>
-                  <strong>Ciudad:</strong> {{dialog_ops.dialogContent.ciudad.nombre}}
-                </div>
-                <div>
-                  <strong>Teléfono:</strong> {{dialog_ops.dialogContent.telefono}}
-                </div>
-                <div>
-                  <strong>Email:</strong> {{dialog_ops.dialogContent.email}}
-                </div>
-                <div>
-                  <strong>Url:</strong> {{dialog_ops.dialogContent.url}}
-                </div>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="green darken-1"
-                  flat="flat"
-                  @click="dialog_ops.dialog = false"
-                >Aceptar</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog> -->
-          <!-- /Modal -->
-
-            <!--<v-card-text style="height: 100px; position: relative">-->
-                <!--<v-fab-transition>-->
-                    <!--<v-btn-->
-                            <!--v-show="!hidden"-->
-                            <!--color="primary"-->
-                            <!--dark-->
-                            <!--fixed-->
-                            <!--bottom-->
-                            <!--left-->
-                            <!--fab-->
-                            <!--@click="goTop"-->
-                            <!--hint="Subir al Inicio"-->
-                    <!--&gt;-->
-                      <!--&lt;!&ndash; @click="$vuetify.goTo(target, options)" &ndash;&gt;-->
-                        <!--<v-icon>vertical_align_top</v-icon>-->
-                    <!--</v-btn>-->
-                <!--</v-fab-transition>-->
-            <!--</v-card-text>-->
         </v-flex>
         <!-- Google Maps -->
         <v-flex xs12 md6 lg6 xl6>
@@ -142,12 +77,16 @@
   import axios from 'axios'
   import * as easings from 'vuetify/es5/util/easing-patterns'
 
+
+  import SelectApiForms from '../components/apiforms/selectbox'
   // Modelo de Instituciones
   import instituciones from '../store/model/instituciones'
+
+  // Google Maps
   import GoogleMap from "../components/GoogleMap";
 
   export default {
-    components: {GoogleMap},
+    components: {GoogleMap,SelectApiForms},
     created: function(){
       store.commit('updateTitle',"SIEP | Instituciones");
     },
@@ -216,20 +155,22 @@
       findInstitution: function () {
         var vm = this;
         vm.searching = true;
+        vm.markers = [];
 
         const curl = axios.create({
           baseURL: vm.apigw
         });
         vm.filtro.with='barrio';
+        debugger;
         return curl.get('/api/v1/centros',{
-          params: vm.filtro
+          params: _.omitBy(vm.filtro, _.isEmpty)
         })
           .then(function (response) {
             let render = response.data.map(function(x) {
               let res ={
                 position:{
                   lat: x.lng,
-                  lng:x.lat
+                  lng: x.lat
                 },
                 data:x
               };
@@ -267,6 +208,14 @@
         var element = document.getElementById("top");
         var top = element.offsetTop;
         element.scrollTo(0,0);
+      },
+      verifyFilters:function(){
+        console.log('Antes del filtro',this.filtro);
+        
+        this.filtro = _.remove(this.filtro , function(f){
+          return f.isNaN
+        })
+        console.log('Despues del filtro',this.filtro);
       }
     }
   }
