@@ -6,8 +6,13 @@ import App from './App'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import _ from 'lodash';
+
+
 import router from './router'
 import store from './store'
+
+
 
 // Google Maps
 import * as VueGoogleMaps from "vue2-google-maps";
