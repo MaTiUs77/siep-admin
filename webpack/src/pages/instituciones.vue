@@ -20,8 +20,9 @@
 
             <v-combobox
                     v-model="filtro.ciudad"
-                    :items="combo_ciudades"
-                    label="Seleccione Ciudad"
+                    :items="combo_ciudades_api"
+                    :loading="combo_ciudades_searching"
+                    label="Seleccione Localidad"
             ></v-combobox>
 
             <v-combobox
@@ -86,7 +87,10 @@
   import GoogleMap from "../components/GoogleMap";
 
   export default {
-    components: {GoogleMap,SelectApiForms},
+    components: { GoogleMap, SelectApiForms },
+    mounted: function(){
+      this.fillLocations();
+    },
     created: function(){
       store.commit('updateTitle',"SIEP | Instituciones");
     },
@@ -121,8 +125,9 @@
       findCentroRunning:false,
       centro_nombre:"",
 
-      combo_ciudades: ['Ushuaia','Tolhuin','Rio Grande'],
-      combo_niveles: ['Común - Inicial','Común - Primario','Común - Secundario'],
+      combo_ciudades_api:[],
+      combo_ciudades_searching:false,
+      combo_niveles: ['Maternal - Inicial','Común - Inicial','Común - Primario','Adultos - Primario','Común - Secundario','Adultos - Secundario'],
       combo_sectores:["ESTATAL","PRIVADO"],
 
       dialog_ops:{
@@ -152,6 +157,30 @@
       }
     },
     methods:{
+
+      fillLocations: function() {
+        var vm = this;
+        const curl = axios.create({
+          baseURL: vm.apigw
+        });
+        vm.combo_ciudades_searching = true;
+        return curl.get('/api/forms/ciudades')
+          .then(function (response) {
+            vm.combo_ciudades_api  = response.data.map(x => {
+              return x.nombre
+            });
+            vm.combo_ciudades_searching = false;
+          })
+          .catch(function (error) {
+            vm.error = error.message;
+            // vm.loading_nivel = false;
+            console.log(vm.error);
+            vm.searching = false;
+            vm.combo_ciudades_searching = false;
+          });
+          
+      },
+
       findInstitution: function () {
         var vm = this;
         vm.searching = true;
@@ -161,7 +190,6 @@
           baseURL: vm.apigw
         });
         vm.filtro.with='barrio';
-        debugger;
         return curl.get('/api/v1/centros',{
           params: _.omitBy(vm.filtro, _.isEmpty)
         })
