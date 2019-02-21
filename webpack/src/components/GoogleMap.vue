@@ -55,7 +55,6 @@
     },
     watch:{
       coords: function(latlong){
-        console.log(latlong);
         this.latitud = latlong.latitud;
         this.longitud = latlong.longitud;
         this.geolocateCenter();
@@ -116,20 +115,42 @@
         this.currentPlace = null;
         this.zoom = this.zoom === 15 ? 16 : 15;
       },
-      showCenterInfo: function(m,index) {
-        this.center = m.position;
-        this.infoWindowPos = m.position;
+      showCenterInfo: function(centro,index) {
+        this.center = centro.position;
+        this.infoWindowPos = centro.position;
+        let titulations = [];
         this.infoContent =
-        '<div style="text-align:left;"><strong>CUE Anexo:</strong> '+m.data.cue+'</div>'+
-        '<div style="text-align:left;"><strong>Nombre:</strong> '+m.data.nombre+'</div>'+
-        '<div style="text-align:left;"><strong>Dirección:</strong> '+m.data.direccion+'</div>'+
-        '<div style="text-align:left;"><strong>Barrio:</strong> '+m.data.barrio.nombre+'</div>'+
-        '<div style="text-align:left;"><strong>Código Postal:</strong> '+m.data.cp+'</div>'+
-        '<div style="text-align:left;"><strong>Código Localidad:</strong> '+m.data.codigo_localidad+'</div>'+
-        '<div style="text-align:left;"><strong>Ciudad:</strong> '+m.data.ciudad.nombre+'</div>'+
-        '<div style="text-align:left;"><strong>Teléfono:</strong> '+m.data.telefono+'</div>'+
-        '<div style="text-align:left;"><strong>Email:</strong> '+m.data.email+'</div>'+
-        '<div style="text-align:left;"><strong>URL:</strong> '+m.data.url+'</div>';
+        '<div style="text-align:left;"><strong>CUE Anexo:</strong> '+centro.data.cue+'</div>'+
+        '<div style="text-align:left;"><strong>Nombre:</strong> '+centro.data.nombre+'</div>'+
+        '<div style="text-align:left;"><strong>Dirección:</strong> '+centro.data.direccion+'</div>'+
+        '<div style="text-align:left;"><strong>Barrio:</strong> '+centro.data.barrio.nombre+'</div>'+
+        '<div style="text-align:left;"><strong>Código Postal:</strong> '+centro.data.cp+'</div>'+
+        '<div style="text-align:left;"><strong>Código Localidad:</strong> '+centro.data.codigo_localidad+'</div>'+
+        '<div style="text-align:left;"><strong>Ciudad:</strong> '+centro.data.ciudad.nombre+'</div>'+
+        '<div style="text-align:left;"><strong>Teléfono:</strong> '+centro.data.telefono+'</div>'+
+        '<div style="text-align:left;"><strong>Email:</strong> '+centro.data.email+'</div>'+
+        '<div style="text-align:left;"><strong>URL:</strong> '+centro.data.url+'</div>';
+
+        // Titulaciones solo para nivel Secundario
+        if(_.endsWith(centro.data.nivel_servicio,"Secundario")){
+          
+          centro.data.cursos.map(curso => {
+            if(curso.division!="" && curso.division!=null){
+              if(titulations.indexOf(curso.titulacion.nombre) === -1 && !_.startsWith(curso.titulacion.nombre,"NIVEL")){
+                titulations.push(curso.titulacion.nombre);
+              }
+            }
+          })
+          if(titulations.length > 0){
+            this.infoContent+='<hr'+
+            '<div style="text-align:left;"><strong>TITULACIONES:</strong></div>'+
+            '<div style="text-align:left;">';
+            titulations.map(titulation =>{
+              this.infoContent+="- "+titulation+"<br>";
+            });
+          }
+          this.infoContent +='</div>';
+        }
 
         //check if its the same marker that was selected if yes toggle
             if (this.currentMidx == index) {

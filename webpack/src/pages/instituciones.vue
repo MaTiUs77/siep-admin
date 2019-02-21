@@ -101,8 +101,6 @@
         longitud: -68.3186003,
       },
       markers:[],
-
-
       type: 'number',
       number: 9999,
       selector: '#top',
@@ -112,24 +110,19 @@
       offset: 0,
       easing: 'easeInOutCubic',
       easings: Object.keys(easings),
-
       error:"",
       searching:false,
       headers:['Nombre'],
       hidden:false,
-
       apigw: process.env.SIEP_API_GW_INGRESS,
-
       filtro:{},
       resultado:[],
       findCentroRunning:false,
       centro_nombre:"",
-
       combo_ciudades_api:[],
       combo_ciudades_searching:false,
       combo_niveles: ['Maternal - Inicial','Común - Inicial','Común - Primario','Adultos - Primario','Común - Secundario','Adultos - Secundario'],
       combo_sectores:["ESTATAL","PRIVADO"],
-
       dialog_ops:{
         dialog: false,
         buttonName:"",
@@ -178,7 +171,6 @@
             vm.searching = false;
             vm.combo_ciudades_searching = false;
           });
-          
       },
 
       findInstitution: function () {
@@ -189,7 +181,7 @@
         const curl = axios.create({
           baseURL: vm.apigw
         });
-        vm.filtro.with='barrio';
+        vm.filtro.with='barrio,cursos.titulacion';
         return curl.get('/api/v1/centros',{
           params: _.omitBy(vm.filtro, _.isEmpty)
         })
@@ -219,9 +211,11 @@
             vm.searching = false;
           });
       },
+
       findInstitutionByName:function(){
         var vm = this;
       },
+
       showCenterInfo(centro){
         let vm = this;
         vm.coords ={
@@ -229,21 +223,21 @@
           longitud: centro.lat
         };
       },
+
       goBack:function(){
         router.go(-1);
       },
+
       goTop:function(){
         var element = document.getElementById("top");
         var top = element.offsetTop;
         element.scrollTo(0,0);
       },
+
       verifyFilters:function(){
-        console.log('Antes del filtro',this.filtro);
-        
         this.filtro = _.remove(this.filtro , function(f){
           return f.isNaN
         })
-        console.log('Despues del filtro',this.filtro);
       }
     }
   }
