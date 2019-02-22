@@ -60,9 +60,8 @@
         this.geolocateCenter();
       },
       markers_array:function(){
-
         this.addStaticMarker();
-
+        this.infoWinOpen = false;
       },
       markers(markers){
         if (markers.length > 2) {
