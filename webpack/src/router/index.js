@@ -8,6 +8,10 @@ import rrhh_alumnos_nominal from '@/pages/rrhh/alumnos_nominal'
 import matriculas_cuantitativa_por_seccion from '@/pages/matriculas/cuantitativa_por_seccion'
 import instituciones from '@/pages/instituciones'
 
+// ABM
+import roles from '@/pages/abm/roles'
+import usuarios from '@/pages/abm/usuarios'
+
 Vue.use(Router);
 
 export default new Router({
@@ -45,6 +49,12 @@ export default new Router({
       path:'/logout',
       name:'logout',
       component: login_api
+    },
+    //ABM
+    {
+      path:'/abm/usuarios',
+      name:'abm.usuarios',
+      component: usuarios
     }
   ]/*,
   scrollBehavior: function(to, from, savedPosition) {

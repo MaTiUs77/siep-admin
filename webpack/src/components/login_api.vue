@@ -14,6 +14,7 @@
                         label="Ingrese su nombre de usuario"
                         v-model="form.data.username"
                         :rules="rule.username"
+                        @keyup.enter="submit"
                         required
                 ></v-text-field>
                 <v-text-field
@@ -25,6 +26,7 @@
                         :append-icon="form.password_hidden ? 'visibility' : 'visibility_off'"
                         :append-icon-cb="() => (form.password_hidden = !form.password_hidden)"
                         :type="form.password_hidden ? 'password' : 'text'"
+                        v-on:keyup.enter="submit"
                         counter
                         required
                 ></v-text-field>

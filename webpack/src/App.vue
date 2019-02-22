@@ -3,11 +3,12 @@
 
     <!-- MENU DE NAVEGACION !-->
     <v-navigation-drawer
-      persistent
       v-model="drawer"
+      app
       enable-resize-watcher
       fixed
-      app
+      clipped
+      temporary
     >
       <!-- Componente UserSidebar -->
       <user-sidebar />
@@ -34,6 +35,18 @@
       <router-view/>
     </v-content>
     <!-- FIN CONTENIDO DE NAVEGACION !-->
+    <v-footer
+      height="auto"
+      color="primary lighten-1"
+    >
+      <v-flex
+        text-xs-center
+        white--text
+        xs12
+      >
+        &copy; 2019 — <strong>Subsecretaría de Planeamiento Educativo, Informática y Evaluación</strong>
+      </v-flex>
+    </v-footer>
 
   </v-app>
 </template>

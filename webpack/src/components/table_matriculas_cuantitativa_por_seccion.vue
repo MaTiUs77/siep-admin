@@ -57,6 +57,7 @@
         <td class="text-xs-right">{{ props.item.anio }}</td>
         <td class="text-xs-right">{{ props.item.division }}</td>
         <td class="text-xs-right">{{ props.item.turno }}</td>
+        <td class="text-xs-right">{{ props.item.titulacion.nombre_abreviado }}</td>
         <td class="text-xs-right">{{ props.item.tipo }}</td>
         <td class="text-xs-right">{{ props.item.matriculas }}</td>
         <td class="text-xs-right">{{ props.item.varones }}</td>
@@ -94,6 +95,7 @@
           { text: 'Año', value: 'anio', sortable: false  },
           { text: 'Division', value: 'division', sortable: false  },
           { text: 'Turno', value: 'turno', sortable: false  },
+          { text: 'Titulacion', value: 'titulacion', sortable: false  },
           { text: 'Tipo', value: 'tipo', sortable: false  },
           { text: 'Matriculas', value: 'matriculas', sortable: false  },
           { text: 'Varones', value: 'varones', sortable: false  },
