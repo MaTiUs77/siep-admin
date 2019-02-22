@@ -22,7 +22,7 @@
                     v-model="filtro.ciudad"
                     :items="combo_ciudades_api"
                     :loading="combo_ciudades_searching"
-                    label="Seleccione Localidad"
+                    label="Seleccione Ubicación"
             ></v-combobox>
 
             <v-combobox
