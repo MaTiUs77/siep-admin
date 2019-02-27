@@ -50,14 +50,14 @@
 
 
             <!-- Resultados de busqueda -->
-            <div v-for="item in resultado">
+            <div v-for="item in resultado" :key="item.id">
                 <v-card>
                     <v-divider></v-divider>
                     <v-list dense>
-                      <h3 class="subheading mb-0 align-start"><strong>CUE: </strong>{{ item.cue }} - {{ item.nombre }}</h3>
+                      <h3 class="subheading mb-0 align-start"><strong>CUE Anexo: </strong>{{ item.cue }} - {{ item.nombre }}</h3>
                     </v-list>
                   <v-btn @click="showCenterInfo(item)" outline color="indigo">
-                    Localizar Centro
+                    Ver En Mapa
                   </v-btn>
 
                 </v-card>
