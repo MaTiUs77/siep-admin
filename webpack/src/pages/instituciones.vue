@@ -1,7 +1,7 @@
 <template >
     <v-container fluid text-xs-center >
-      <v-layout id="top" flex align-content-space-between justify-center >
-        <v-flex class="scrollable-content" xs12 md6 lg5 xl5 >
+      <v-layout id="top" flex row wrap align-content-space-between justify-center >
+        <v-flex class="scrollable-content" xs12 sm12 md5 lg5 xl5 mb-2>
             <v-flex xs12 md12 lg12 xl12>
               <!-- <v-text-field
                 v-model="filtro.nombre"
@@ -65,8 +65,8 @@
 
         </v-flex>
         <!-- Google Maps -->
-        <v-flex xs12 md6 lg6 xl6>
-            <google-map :coords="coords" :markers_array="markers"/>
+        <v-flex xs12 sm12 md7 lg7 x7>
+          <google-map :coords="coords" :markers_array="markers"/>
         </v-flex>
       </v-layout>
     </v-container>
