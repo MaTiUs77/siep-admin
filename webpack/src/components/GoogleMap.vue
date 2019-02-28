@@ -2,7 +2,7 @@
     <gmap-map
       :center="center"
       :zoom="zoom"
-      style="margin:13px; width:100%;  height: 450px;"
+      style="margin-left:10px; width:100%;  height: 450px;"
       ref="mapRef"
     >
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
