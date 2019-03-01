@@ -14,9 +14,14 @@
               custom="nombre"/>
             </v-flex>
 
-          <v-divider></v-divider>
+          <v-divider xs12 md12 lg12 xl12></v-divider>
 
-          <div class="text-xs-center"><v-chip label>Si lo desea, además puede utilizar los filtros listados aquí debajo</v-chip></div>
+          <!-- <div xs12 md12 lg12 xl12 class="text-xs-center"><v-chip label>Si lo desea, además puede utilizar los filtros listados aquí debajo</v-chip></div> -->
+          <v-flex xs12 sm12 md12 lg12 xl12 mt-1>
+            <div class="text-center">
+              <p ligth>Si lo desea, además puede utilizar los filtros listados aquí debajo</p>
+            </div>
+          </v-flex>
 
             <v-combobox
                     v-model="filtro.ciudad"
