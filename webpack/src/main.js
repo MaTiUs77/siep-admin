@@ -2,21 +2,19 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+
+// Google Maps
+import * as VueGoogleMaps from "vue2-google-maps";
+
 // Vuetify
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
 import _ from 'lodash';
 
-
+// Source
 import router from './router'
 import store from './store'
-
-
-
-// Google Maps
-import * as VueGoogleMaps from "vue2-google-maps";
-// import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
 
 Vue.use(Vuetify);
 

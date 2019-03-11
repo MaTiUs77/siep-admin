@@ -1,7 +1,7 @@
 <template >
     <v-container fluid text-xs-center >
-      <v-layout id="top" flex row wrap align-content-space-between justify-center >
-        <v-flex class="scrollable-content" xs12 sm12 md5 lg5 xl5 mb-2>
+      <v-layout v-resize="onResize" id="top" flex row wrap align-content-space-between justify-center >
+        <v-flex v-bind:class="{ 'scrollable-content' : !isMobile, 'scrollable-content-mobile' : isMobile}" xs12 sm12 md5 lg5 xl5 mb-2>
             <v-flex xs12 md12 lg12 xl12>
               <!-- <v-text-field
                 v-model="filtro.nombre"
@@ -13,13 +13,9 @@
               label="Busque por Nombre de Institución" 
               custom="nombre"/>
             </v-flex>
-
-          <v-divider xs12 md12 lg12 xl12></v-divider>
-
-          <!-- <div xs12 md12 lg12 xl12 class="text-xs-center"><v-chip label>Si lo desea, además puede utilizar los filtros listados aquí debajo</v-chip></div> -->
-          <v-flex xs12 sm12 md12 lg12 xl12 mt-1>
+          <v-flex xs12 sm12 md12 lg12 xl12>
             <div class="text-center">
-              <p ligth>Si lo desea, además puede utilizar los filtros listados aquí debajo</p>
+              <p ligth>Si lo desea, además puede utilizar los filtros</p>
             </div>
           </v-flex>
 
@@ -40,6 +36,12 @@
                     v-model="filtro.sector"
                     :items="combo_sectores"
                     label="Seleccione Sector"
+            ></v-combobox>
+
+             <v-combobox
+                    v-model="filtro.ambito"
+                    :items="combo_ambito"
+                    label="Seleccione Ambito"
             ></v-combobox>
 
             <v-container>
@@ -95,11 +97,14 @@
     components: { GoogleMap, SelectApiForms },
     mounted: function(){
       this.fillLocations();
+      this.onResize();
     },
     created: function(){
       store.commit('updateTitle',"SIEP | Instituciones");
     },
     data: ()=>({
+
+      isMobile:false,
 
       coords:{
         latitud: -68.2746,
@@ -126,8 +131,9 @@
       centro_nombre:"",
       combo_ciudades_api:[],
       combo_ciudades_searching:false,
-      combo_niveles: ['Maternal - Inicial','Común - Inicial','Común - Primario','Adultos - Primario','Común - Secundario','Adultos - Secundario'],
+      combo_niveles: ['Maternal - Inicial','Común - Inicial','Común - Primario','Adultos - Primario','Común - Secundario','Adultos - Secundario', 'Común - Superior'],
       combo_sectores:["ESTATAL","PRIVADO"],
+      combo_ambito: ['Rural', 'Urbano'],
       dialog_ops:{
         dialog: false,
         buttonName:"",
@@ -155,6 +161,13 @@
       }
     },
     methods:{
+      onResize () {
+        if(window.innerWidth <= 480){
+          this.isMobile = true;
+        }else{
+          this.isMobile = false;
+        }
+      },
 
       fillLocations: function() {
         var vm = this;
@@ -187,6 +200,7 @@
           baseURL: vm.apigw
         });
         vm.filtro.with='barrio,cursos.titulacion';
+        console.log(vm.filtro);
         return curl.get('/api/v1/centros',{
           params: _.omitBy(vm.filtro, _.isEmpty)
         })
@@ -252,6 +266,17 @@
 
   .scrollable-content {
     height: 500px;
+    background: white;
+    flex-grow: 1;
+
+    overflow: auto;
+
+    /* for Firefox */
+    min-height: 0;
+  }
+
+  .scrollable-content-mobile {
+    height: 470px;
     background: white;
     flex-grow: 1;
 
