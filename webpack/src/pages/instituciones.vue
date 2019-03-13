@@ -1,7 +1,7 @@
 <template >
     <v-container fluid text-xs-center >
-      <v-layout id="top" flex align-content-space-between justify-center >
-        <v-flex class="scrollable-content" xs12 md6 lg5 xl5 >
+      <v-layout v-resize="onResize" id="top" flex row wrap align-content-space-between justify-center >
+        <v-flex v-bind:class="{ 'scrollable-content' : !isMobile, 'scrollable-content-mobile' : isMobile}" xs12 sm12 md5 lg5 xl5 mb-2>
             <v-flex xs12 md12 lg12 xl12>
               <!-- <v-text-field
                 v-model="filtro.nombre"
@@ -13,10 +13,11 @@
               label="Busque por Nombre de Institución" 
               custom="nombre"/>
             </v-flex>
-
-          <v-divider></v-divider>
-
-          <div class="text-xs-center"><v-chip label>Si lo desea, además puede utilizar los filtros listados aquí debajo</v-chip></div>
+          <v-flex xs12 sm12 md12 lg12 xl12>
+            <div class="text-center">
+              <p ligth>Si lo desea, además puede utilizar los filtros</p>
+            </div>
+          </v-flex>
 
             <v-combobox
                     v-model="filtro.ciudad"
@@ -37,36 +38,67 @@
                     label="Seleccione Sector"
             ></v-combobox>
 
-            <v-container>
+             <v-combobox
+                    v-model="filtro.ambito"
+                    :items="combo_ambito"
+                    label="Seleccione Ambito"
+            ></v-combobox>
+
+            <v-flex xs12 sm12 md12 lg12 xl12>
                 <v-btn
-                        class="mx-0"
-                        color="primary"
-                        @click="findInstitution"
-                        :loading="searching"
+                  class="mx-0"
+                  color="primary"
+                  v-scroll-to="{
+                    el: '#results',
+                    duration: 500,
+                    easing: 'ease-in-out',
+                    offset: -100,
+                    force: true,
+                    cancelable: true,
+                    onDone: findInstitution,
+                    x: false,
+                    y: true
+                  }"
+                  :loading="searching"
+                  ref="button"
                 >
                     <v-icon left large>search</v-icon>Buscar
                 </v-btn>
-            </v-container>
+            </v-flex>
 
 
             <!-- Resultados de busqueda -->
-            <div v-for="item in resultado" :key="item.id">
+            <div id="results" ref="results">
+              <div v-for="item in resultado" :key="item.id">
                 <v-card>
-                    <v-divider></v-divider>
-                    <v-list dense>
-                      <h3 class="subheading mb-0 align-start"><strong>CUE Anexo: </strong>{{ item.cue }} - {{ item.nombre }}</h3>
-                    </v-list>
-                  <v-btn @click="showCenterInfo(item)" outline color="indigo">
+                  <v-divider></v-divider>
+                  <v-list dense>
+                    <h3 class="subheading mb-0 align-start"><strong>CUE Anexo: </strong>{{ item.cue }} - {{ item.nombre }}</h3>
+                  </v-list>
+                  <v-btn  v-scroll-to="{
+                    el: '#maps',
+                    duration: 500,
+                    easing: 'ease-in-out',
+                    offset: -50,
+                    force: true,
+                    cancelable: true,
+                    onStart: function(element) {
+                      showCenterInfo(item);
+                    },
+                    x: false,
+                    y: true
+                  }"
+                   outline color="indigo">
                     Ver En Mapa
                   </v-btn>
-
                 </v-card>
+              </div>
             </div>
 
         </v-flex>
         <!-- Google Maps -->
-        <v-flex xs12 md6 lg6 xl6>
-            <google-map :coords="coords" :markers_array="markers"/>
+        <v-flex xs12 sm12 md7 lg7 x7 id="maps" ref="maps">
+          <google-map :coords="coords" :markers_array="markers"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -90,24 +122,22 @@
     components: { GoogleMap, SelectApiForms },
     mounted: function(){
       this.fillLocations();
+      this.onResize();
     },
     created: function(){
       store.commit('updateTitle',"SIEP | Instituciones");
     },
     data: ()=>({
-
+      isMobile:false,
       coords:{
         latitud: -68.2746,
         longitud: -68.3186003,
       },
       markers:[],
-      type: 'number',
-      number: 9999,
-      selector: '#top',
       selected: 'Button',
       elements: ['Button', 'Radio group'],
-      duration: 300,
-      offset: 0,
+      duration: 800,
+      offset: -10,
       easing: 'easeInOutCubic',
       easings: Object.keys(easings),
       error:"",
@@ -121,8 +151,9 @@
       centro_nombre:"",
       combo_ciudades_api:[],
       combo_ciudades_searching:false,
-      combo_niveles: ['Maternal - Inicial','Común - Inicial','Común - Primario','Adultos - Primario','Común - Secundario','Adultos - Secundario'],
+      combo_niveles: ['Maternal - Inicial','Común - Inicial','Común - Primario','Adultos - Primario','Común - Secundario','Adultos - Secundario', 'Común - Superior'],
       combo_sectores:["ESTATAL","PRIVADO"],
+      combo_ambito: ['Rural', 'Urbano'],
       dialog_ops:{
         dialog: false,
         buttonName:"",
@@ -132,16 +163,17 @@
   }
     }),
     computed:{
-      target () {
-        const value = 0;
-        if (!isNaN(value)) return Number(value)
-        else return value
+      targetSearch () {
+        this.findInstitution()
+        return this.$refs.button;
       },
-      options () {
+      targetMap () {
+        return this.$refs.maps;
+      },
+      scrollOptions () {
         return {
           duration: this.duration,
-          offset: this.offset,
-          easing: this.easing
+          offset: this.offset
         }
       },
       element () {
@@ -150,6 +182,13 @@
       }
     },
     methods:{
+      onResize () {
+        if(window.innerWidth <= 480){
+          this.isMobile = true;
+        }else{
+          this.isMobile = false;
+        }
+      },
 
       fillLocations: function() {
         var vm = this;
@@ -210,6 +249,19 @@
 
             vm.searching = false;
           });
+
+          // var options = {
+          //   el: '#results', 
+          //   easing: 'ease-in',
+          //   duration: 800,
+          //   offset: 0,
+          //   force: true,
+          //   cancelable: true,
+          //   x: false,
+          //   y: true
+          // }
+
+          // VueScrollTo.scrollTo(options);
       },
 
       findInstitutionByName:function(){
@@ -217,6 +269,7 @@
       },
 
       showCenterInfo(centro){
+
         let vm = this;
         vm.coords ={
           latitud: centro.lng,
@@ -246,7 +299,18 @@
 <style scoped>
 
   .scrollable-content {
-    height: 500px;
+    height: 550px;
+    background: white;
+    flex-grow: 1;
+
+    overflow: auto;
+
+    /* for Firefox */
+    min-height: 0;
+  }
+
+  .scrollable-content-mobile {
+    height: 600px;
     background: white;
     flex-grow: 1;
 
