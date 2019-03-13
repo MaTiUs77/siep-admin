@@ -16,11 +16,24 @@ import _ from 'lodash';
 import router from './router'
 import store from './store'
 
-Vue.use(Vuetify);
+// ScrollTo
+import VueScrollTo from 'vue-scrollto';
 
-// Vue.use(VuetifyGoogleAutocomplete, {
-//   apiKey: 'AIzaSyBFPUFES_l4Gn4QKty9nwXTdeM-Ew-Hxb8' // Can also be an object. E.g, for Google Maps Premium API, pass `{ client: <YOUR-CLIENT-ID> }`
-// });
+Vue.use(VueScrollTo, {
+     container: "body",
+     duration: 500,
+     easing: "ease",
+     offset: 0,
+     force: true,
+     cancelable: true,
+     onStart: false,
+     onDone: false,
+     onCancel: false,
+     x: false,
+     y: true
+ })
+
+Vue.use(Vuetify);
 
 Vue.use(VueGoogleMaps, {
   load: {
