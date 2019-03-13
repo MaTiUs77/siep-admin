@@ -2,7 +2,7 @@
     <gmap-map
       :center="center"
       :zoom="zoom"
-      style="margin-left:10px; width:100%;  height: 500px;"
+      class="googleMaps"
       ref="mapRef"
     >
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
@@ -14,6 +14,8 @@
         :position="m.position"
         :draggable="true"
         :clickable="true"
+        title="Click para mostrar Información"
+        icon= "http://maps.google.com/mapfiles/kml/shapes/info-i.png"
         @click="showCenterInfo(m,index)"
       ></gmap-marker>
     </gmap-map>
@@ -27,10 +29,12 @@
     props:['coords','markers_array'],
     data() {
       return {
+        apigw: process.env.SIEP_API_GW_INGRESS,
         latitud:0,
         longitud:0,
         center: { lat : 0, lng : 0},
         markers: [],
+        // maps_icon: ,
         markers_temp: [],
         places: [],
         currentPlace: null,
@@ -166,3 +170,11 @@
     }
   };
 </script>
+<style>
+.googleMaps{
+  margin-left: 5px;
+  width: 100%;
+  height: 550px;
+}
+</style>
+
