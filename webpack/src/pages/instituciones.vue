@@ -133,10 +133,7 @@
         latitud: -68.2746,
         longitud: -68.3186003,
       },
-      type: 'element',
       markers:[],
-      number: 9999,
-      selector: '#top',
       selected: 'Button',
       elements: ['Button', 'Radio group'],
       duration: 800,
@@ -302,7 +299,7 @@
 <style scoped>
 
   .scrollable-content {
-    height: 500px;
+    height: 550px;
     background: white;
     flex-grow: 1;
 
