@@ -14,10 +14,8 @@
         <v-divider></v-divider>
         <!-- Componente MenuSidebar -->
         <menu-sidebar />
-
       </v-navigation-drawer>
       <!-- FIN MENU DE NAVEGACION !-->
-
       <!-- Menu toolbar !-->
       <v-toolbar app :color="menu_toolbar.header_color" dark >
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
