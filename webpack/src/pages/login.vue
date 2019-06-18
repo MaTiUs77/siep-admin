@@ -37,7 +37,17 @@
     computed:{
       user(){
         return store.state.user
+      },
+      administracion(){
+        if(store.state.administracion.administracion.en_mantenimiento === 1){
+          router.push('/mantenimiento');
+        }
+        return store.state.administracion.administracion;
       }
+      
+    },
+    watch: {
+      administracion(){}
     },
     methods:{
       goTo : function(social){
