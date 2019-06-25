@@ -57,7 +57,7 @@
         vm.loading = true;
         vm.error = false;
 
-        axios.get(vm.apigw+'/api/forms/'+vm.form)
+        axios.get(vm.apigw+'/api/public/siep_admin/v1/forms/'+vm.form)
         .then(function (response) {
           let render = response.data.map(function(x) {
             let getValue = 'nombre';

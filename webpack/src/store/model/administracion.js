@@ -22,33 +22,46 @@ const module = {
     getAdministracionData:function({commit,state},payload){
       state.working = true;
       state.apiGetUserDataRunning = true;
+
       const curl = axios.create({
-        baseURL: process.env.SIEP_API_GW_INGRESS
+        baseURL: process.env.SIEP_API_GW_INGRESS,
       });
+
+      // curl.interceptors.request.use (
+      //   function (config) {
+      //     config.headers.Authorization = `Bearer ${state.authToken}`;
+      //     config.headers['X-CAKE-APP'] = 'Chinwenwencha';
+      //     return config;
+      //   },
+      //   function (error) {
+      //     return Promise.reject (error);
+      //   }
+      // );
       // En todas las request envia el token por header
       curl.defaults.headers.common['Authorization'] = `Bearer ${state.authToken}`;
+      curl.defaults.headers.common['X-CAKE-APP'] = 'Chinwenwencha';
       curl.get('/api/v1/administracion',{
-        params: {request_from:'siep_admin',stage: process.env.NODE_ENV}
+        params: {request_from:'siep_admin',stage: process.env.NODE_ENV},
       })
-          .then(function (response) {
-            // handle success
-            commit('updateAdminState',response.data);
-            state.apiGetUserDataRunning = false;
-            state.working = false;
-          })
-          .catch(function (error) {
-            // handle error
-            let alerta = {
-              show: true,
-              class: "error",
-              message: error
-            };
-            store.dispatch('toggleAlertMessage',alerta);
-            state.apiGetUserDataRunning = false;
-            state.working = false;
-          });
+        .then(function (response) {
+          // handle success
+          commit('updateAdminState',response.data);
+          state.apiGetUserDataRunning = false;
+          state.working = false;
+        })
+        .catch(function (error) {
+          // handle error
+          let alerta = {
+            show: true,
+            class: "error",
+            message: error
+          };
+          store.dispatch('toggleAlertMessage',alerta);
+          state.apiGetUserDataRunning = false;
+          state.working = false;
+        });
     },
-    updateAdministracionData:function(){
+    updateAdministracionData:function(form){
       const curl = axios.create({
         baseURL: process.env.SIEP_API_GW_INGRESS
       });

@@ -38,15 +38,17 @@
       persona(){
         return store.getters.persona;
       },
-      administracion(){
-        if(store.state.administracion.administracion.en_mantenimiento === 1){
-          router.push('/mantenimiento');
-        }
-        return store.state.administracion.administracion;
-      }
+      // ESTO ES PARA MAS ADELANTE
+      // administracion(){
+      //   if(store.state.administracion.administracion.en_mantenimiento === 1){
+      //     router.push('/mantenimiento');
+      //   }
+      //   return store.state.administracion.administracion;
+      // }
     },
     watch: {
-      administracion(){}
+      // ESTO ES PARA MAS ADELANTE
+      // administracion(){}
     }
   }
 </script>

@@ -141,7 +141,7 @@
 
         vm.scrollToTop();
 
-        axios.get(vm.apigw+'/api/matriculas/cuantitativa/por_seccion',{
+        axios.get(vm.apigw+'/api/public/siep_admin/v1/matriculas/v1/matriculas_por_seccion',{
           params: vm.query
         })
         .then(function (response) {
@@ -163,7 +163,7 @@
         download.export = 1;
         download.por_pagina = 'all';
 
-        axios.get(vm.apigw+'/api/matriculas/cuantitativa/por_seccion',{
+        axios.get(vm.apigw+'/api/public/siep_admin/v1/matriculas/v1/matriculas_por_seccion',{
           params: download,
           responseType: 'blob'
         })
