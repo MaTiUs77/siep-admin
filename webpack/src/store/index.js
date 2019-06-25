@@ -6,6 +6,7 @@ import menu_toolbar from './model/menu_toolbar'
 
 //import user from './model/user'
 import login_api from './model/login_api'
+import alert from './model/alert'
 import dialog from './model/dialog'
 import administracion from './model/administracion'
 
@@ -18,6 +19,7 @@ const store = new Vuex.Store({
 
 //    user: user,
     login_api: login_api,
+    alert:alert,
     dialog:dialog,
     administracion:administracion
   }

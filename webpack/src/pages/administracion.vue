@@ -62,7 +62,6 @@
         return store.state.administracion.administracion;
       },
       working(){
-        console.log(store.state.administracion.working);
         return store.state.administracion.working;
       }
     },

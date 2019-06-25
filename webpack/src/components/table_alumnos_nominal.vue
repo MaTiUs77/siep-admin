@@ -226,7 +226,7 @@
 
         vm.scrollToTop();
 
-        axios.get(vm.apigw+'/api/dependencia/rrhh/nominal_alumnos_inscriptos',{
+        axios.get(vm.apigw+'/api/public/siep_admin/v1/dependencia/rrhh/nominal_alumnos_inscriptos',{
           params: vm.query
         })
         .then(function (response) {
@@ -253,7 +253,7 @@
         download.page = parte;
         download.por_pagina = vm.excel.limite;
 
-        axios.get(vm.apigw+'/api/dependencia/rrhh/nominal_alumnos_inscriptos',{
+        axios.get(vm.apigw+'/api/public/siep_admin/v1/dependencia/rrhh/nominal_alumnos_inscriptos',{
           params: download,
           responseType: 'blob'
         })

@@ -74,7 +74,8 @@
     created(){
       console.log('APP Created');
       store.dispatch('LOGIN_API_fetchUserRemember');
-      store.dispatch('getAdministracionData');
+      // ESTO ES PARA MÁS ADELANTE
+      // store.dispatch('getAdministracionData');
     },
     methods: {
       logout() {
