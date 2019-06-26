@@ -24,7 +24,7 @@
   import router from '../router'
   import login_api from '../components/login_api'
 
-  export default{
+  export default {
     created: function(){
       store.commit('updateTitle',"SIEP | Servicio");
     },
@@ -37,7 +37,18 @@
       },
       persona(){
         return store.getters.persona;
-      }
+      },
+      // ESTO ES PARA MAS ADELANTE
+      // administracion(){
+      //   if(store.state.administracion.administracion.en_mantenimiento === 1){
+      //     router.push('/mantenimiento');
+      //   }
+      //   return store.state.administracion.administracion;
+      // }
+    },
+    watch: {
+      // ESTO ES PARA MAS ADELANTE
+      // administracion(){}
     }
   }
 </script>

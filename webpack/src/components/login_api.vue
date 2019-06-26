@@ -24,7 +24,7 @@
                         v-model="form.data.password"
                         :rules="rule.password"
                         :append-icon="form.password_hidden ? 'visibility' : 'visibility_off'"
-                        :append-icon-cb="() => (form.password_hidden = !form.password_hidden)"
+                        @click:append="() => (form.password_hidden = !form.password_hidden)"
                         :type="form.password_hidden ? 'password' : 'text'"
                         v-on:keyup.enter="submit"
                         counter

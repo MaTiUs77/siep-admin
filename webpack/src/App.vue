@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <section v-if="!maintenanceMode">
       <!-- MENU DE NAVEGACION !-->
       <v-navigation-drawer
         persistent
@@ -32,16 +31,6 @@
         <router-view/>
       </v-content>
       <!-- FIN CONTENIDO DE NAVEGACION !-->
-    </section>
-    <section v-if="maintenanceMode">
-      <article>
-          <h1>Estarémos de vuelta muy pronto!</h1>
-          <div>
-              <p>Disculpe las molestias, estamos trabajando en el sitio en este momento. Si es necesario, puede contactarnos al correo <a href="mailto:#">sinide.tdf@gmail.com</a>, de igual manera, estaremos de nuevo online muy pronto!</p><br>
-              <p style="text-align:left !important;">&mdash; Equipo de SIEP</p>
-          </div>
-      </article>
-    </section>
     <v-footer
       height="auto"
       color="primary lighten-1"
@@ -85,19 +74,12 @@
     created(){
       console.log('APP Created');
       store.dispatch('LOGIN_API_fetchUserRemember');
-      this.verifyHost();
+      // ESTO ES PARA MÁS ADELANTE
+      // store.dispatch('getAdministracionData');
     },
     methods: {
       logout() {
         store.dispatch('LOGIN_API_logout');
-      },
-      verifyHost(){
-        if(window.location.hostname.includes('admin.sieptdf')){
-          this.maintenanceMode = true;
-        }else{
-          console.log(window.location.hostname);
-          this.maintenanceMode = false;
-        }
       }
     },
     name: 'App'

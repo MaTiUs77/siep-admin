@@ -7,6 +7,8 @@ import home from '@/pages/home'
 import rrhh_alumnos_nominal from '@/pages/rrhh/alumnos_nominal'
 import matriculas_cuantitativa_por_seccion from '@/pages/matriculas/cuantitativa_por_seccion'
 import instituciones from '@/pages/instituciones'
+import mantenimiento from '@/pages/mantenimiento'
+import administracion from '@/pages/administracion'
 
 // ABM
 import roles from '@/pages/abm/roles'
@@ -55,6 +57,17 @@ export default new Router({
       path:'/abm/usuarios',
       name:'abm.usuarios',
       component: usuarios
+    },
+    // ADMINISTRACIÓN | MANTENIMIENTO
+    {
+      path: '/administrar',
+      name: 'administrar',
+      component: administracion
+    },
+    {
+      path: '/mantenimiento',
+      name: 'mantenimiento',
+      component: mantenimiento
     }
   ]/*,
   scrollBehavior: function(to, from, savedPosition) {
