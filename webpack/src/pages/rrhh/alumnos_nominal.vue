@@ -45,6 +45,7 @@
         filtro: {
           ciclo: 2018,
           estado_inscripcion: 'CONFIRMADA',
+          division: 'con'
         }
       }
     },
