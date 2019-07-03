@@ -14,7 +14,7 @@
           ></v-text-field>
 
           <select-api-forms v-model="filtro.ciclo" :selected="filtro.ciclo" form="ciclos" label="Filtrar ciclo"/>
-          <select-api-forms v-model="filtro.ciudad" form="ciudades" label="Filtrar ciudad"/>
+          <select-api-forms v-model="filtro.ciudad" form="ciudades" label="Filtrar localidad"/>
           <select-api-forms v-model="filtro.centro_id" form="centros" label="Filtrar centro" custom="id"/>
           <select-api-forms v-model="filtro.sector" form="sectores" label="Filtrar sector" text="sector"/>
           <select-api-forms v-model="filtro.nivel_servicio" form="niveles" label="Filtrar nivel de servicio" text="nivel_servicio"/>
