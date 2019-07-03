@@ -31,7 +31,8 @@
     data () {
       return {
         filtro: {
-          ciclo: 2018
+          ciclo: 2018,
+          division: 'con'
         },
       }
     },
