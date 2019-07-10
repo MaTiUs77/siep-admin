@@ -228,8 +228,8 @@
             let render = response.data.map(function(x) {
               let res ={
                 position:{
-                  lat: x.lng,
-                  lng: x.lat
+                  lat: x.lat,
+                  lng: x.lng
                 },
                 data:x
               };
