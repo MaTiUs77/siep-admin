@@ -119,6 +119,18 @@
         this.zoom = this.zoom === 15 ? 16 : 15;
       },
       showCenterInfo: function(centro,index) {
+        if(_.isEmpty(centro.data.barrio)){
+          Vue.set(centro.data,'barrio',{'nombre':''});
+        }
+        if(_.isEmpty(centro.data.url)){
+          centro.data.url = '';
+        }
+        if(_.isEmpty(centro.data.email)){
+          centro.data.email = '';
+        }
+        if(centro.data.telefono === null){
+          centro.data.telefono = '';
+        }
         this.center = centro.position;
         this.infoWindowPos = centro.position;
         let titulations = [];
