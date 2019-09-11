@@ -57,10 +57,16 @@
         <td class="text-xs-right">{{ props.item.anio }}</td>
         <td class="text-xs-right">{{ props.item.division }}</td>
         <td class="text-xs-right">{{ props.item.turno }}</td>
+        <td class="text-xs-right">{{ props.item.hs_catedras }}</td>
+        <td class="text-xs-right">{{ props.item.titulacion.reso_titulacion_nro }}/{{ props.item.titulacion.reso_titulacion_anio }}</td>
+        <td class="text-xs-right">{{ props.item.reso_presupuestaria }}</td>
         <td class="text-xs-right">{{ props.item.titulacion.nombre_abreviado }}</td>
+        <td class="text-xs-right">{{ props.item.titulacion.orientacion }}</td>
         <td class="text-xs-right">{{ props.item.tipo }}</td>
+        <td class="text-xs-right">{{ props.item.plazas }}</td>
         <td class="text-xs-right">{{ props.item.matriculas }}</td>
-        <td class="text-xs-right">{{ props.item.varones }}</td>
+        <td class="text-xs-right">{{ props.item.vacantes }}</td>
+        <td class="text-xs-right">{{ props.item.observaciones }}</td>
       </template>
     </v-data-table>
     <!-- ./Datatable -->
@@ -95,10 +101,16 @@
           { text: 'Año', value: 'anio', sortable: false  },
           { text: 'Division', value: 'division', sortable: false  },
           { text: 'Turno', value: 'turno', sortable: false  },
-          { text: 'Titulacion', value: 'titulacion', sortable: false  },
+          { text: 'Hs Cátedras', value: 'hs_catedras', sortable: false  },
+          { text: 'Res. Pedagógica', value: 'res_pedagogica', sortable: false  },
+          { text: 'Res. Presupuestaria', value: 'reso_presupuestaria', sortable: false  },
+          { text: 'Titulación', value: 'titulacion', sortable: false  },
+          { text: 'Orientación', value: 'titulacion.orientacion', sortable: false  },
           { text: 'Tipo', value: 'tipo', sortable: false  },
+          { text: 'Plazas', value: 'plazas', sortable: false  },
           { text: 'Matriculas', value: 'matriculas', sortable: false  },
-          { text: 'Varones', value: 'varones', sortable: false  },
+          { text: 'Vacantes', value: 'vacantes', sortable: false  },
+          { text: 'Observaciones', value: 'observaciones', sortable: false  },
         ],
         response: [],
 
@@ -175,7 +187,7 @@
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement('a');
           link.href = url;
-          link.setAttribute('download', 'Matriculas_cuantitativa_por_seccion.xlsx');
+          link.setAttribute('download', 'Matriculas_cuantitativas_por_seccion.xls');
           document.body.appendChild(link);
           link.click();
         })
