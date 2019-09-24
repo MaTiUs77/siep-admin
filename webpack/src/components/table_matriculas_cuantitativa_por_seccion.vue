@@ -20,7 +20,9 @@
       color="green"
       class="white--text"
     >
-      <v-icon left dark>cloud_download</v-icon>
+      <span style="font-size: 18px; margin-right:15px;">
+        <font-awesome-icon :icon="['fas','file-excel']"/>
+      </span>
       Descargar Excel
     </v-btn>
 
@@ -38,6 +40,24 @@
       </v-btn>
     </v-snackbar>
     <!-- ./Descargar excel -->
+
+    <!-- Descargar PDF -->
+    <v-btn
+      v-if="response.total"
+      small
+      :loading="pdf.download"
+      :disabled="pdf.download"
+      @click.native="startDownloadPDF"
+      red darken-1
+      color="red darken-1"
+      class="white--text"
+    >
+    <span style="font-size: 18px; margin-right:15px;">
+      <font-awesome-icon :icon="['fas','file-pdf']"/>
+    </span>
+      Descargar PDF
+    </v-btn>
+    <!-- /Descargar PDF -->
 
     <!-- Datatable -->
     <v-data-table
@@ -120,6 +140,12 @@
           error_message: false,
           snackbar: false
         },
+        pdf: {
+          download: false,
+          error: false,
+          error_message: false,
+          snackbar: false
+        },
 
         apigw: process.env.SIEP_API_GW_INGRESS,
         page: 1,
@@ -196,6 +222,39 @@
           vm.excel.error= true;
           vm.excel.error_message= error.message;
           vm.excel.snackbar = true;
+        });
+      },
+      startDownloadPDF() {
+        let vm = this;
+        vm.pdf.download = true;
+        vm.pdf.error= false;
+
+
+        let download= JSON.parse(JSON.stringify(vm.query));
+        download.export = 2;
+        download.por_pagina = 'all';
+
+        axios.get(vm.apigw+'/api/public/siep_admin/v1/matriculas/v1/matriculas_por_seccion',{
+          params: download,
+          responseType: 'blob'
+
+        }).then(function (response) {
+          vm.pdf.download= false;
+          vm.pdf.error= false;
+
+          // Descarga EXCEL con AJAX (permite crear loading)
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'ddjj__secciones.pdf');
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch(function (error) {
+          vm.pdf.download= false;
+          vm.pdf.error= true;
+          vm.pdf.error_message= error.message;
+          vm.pdf.snackbar = true;
         });
       },
       scrollToTop() {
