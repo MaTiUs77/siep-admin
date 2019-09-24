@@ -3,6 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 
+// Font Awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret, faFileExcel, faFilePdf } from '@fortawesome/free-solid-svg-icons'
+import { faFacebookF, faGoogle, faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faUserSecret, faFileExcel, faFacebookF, faGoogle, faLinkedinIn, faTwitter, faFilePdf)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 // Google Maps
 import * as VueGoogleMaps from "vue2-google-maps";
 
