@@ -43,13 +43,16 @@
     data () {
       return {
         filtro: {
-          ciclo: 2018,
+          ciclo: this.currentYear(),
           estado_inscripcion: 'CONFIRMADA',
           division: 'con'
         }
       }
     },
     methods: {
+      currentYear(){
+        return new Date().getFullYear()
+      }
     }
   }
 </script>

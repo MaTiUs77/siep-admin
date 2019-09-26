@@ -5,7 +5,7 @@
         <table-matriculas-cuantitativa-por-seccion :query="filtro"/>
       </v-flex>
       <v-flex xs3>
-        <select-api-forms v-model="filtro.ciclo" selected="2018" form="ciclos" label="Filtrar ciclo"/>
+        <select-api-forms v-model="filtro.ciclo" :selected="filtro.ciclo" form="ciclos" label="Filtrar ciclo"/>
         <select-api-forms v-model="filtro.ciudad" form="ciudades" label="Filtrar localidad"/>
         <select-api-forms v-model="filtro.centro_id" form="centros" label="Filtrar centro" custom="id"/>
         <select-api-forms v-model="filtro.nivel_servicio" form="niveles" label="Filtrar nivel de servicio" text="nivel_servicio"/>
@@ -23,6 +23,7 @@
   export default {
     created: function(){
       store.commit('updateTitle',"SIEP | Secciones");
+
     },
     components :{
       SelectApiForms,
@@ -31,12 +32,15 @@
     data () {
       return {
         filtro: {
-          ciclo: 2018,
+          ciclo: this.currentYear(),
           division: 'con'
         },
       }
     },
     methods: {
+      currentYear(){
+        return new Date().getFullYear()
+      }
     }
   }
 </script>
