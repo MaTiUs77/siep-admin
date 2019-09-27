@@ -123,7 +123,7 @@
           { text: 'Turno', value: 'turno', sortable: false  },
           { text: 'Hs Cátedras', value: 'hs_catedras', sortable: false  },
           { text: 'Res. Pedagógica', value: 'res_pedagogica', sortable: false  },
-          { text: 'Res. Presupuestaria', value: 'reso_presupuestaria', sortable: false  },
+          { text: 'Instr. legal de Creación', value: 'reso_presupuestaria', sortable: false  },
           { text: 'Titulación', value: 'titulacion', sortable: false  },
           { text: 'Orientación', value: 'titulacion.orientacion', sortable: false  },
           { text: 'Tipo', value: 'tipo', sortable: false  },
