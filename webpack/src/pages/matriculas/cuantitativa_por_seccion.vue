@@ -33,6 +33,7 @@
       return {
         filtro: {
           ciclo: this.currentYear(),
+          estado_inscripcion: 'CONFIRMADA',
           division: 'con'
         },
       }
